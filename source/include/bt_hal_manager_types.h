@@ -25,13 +25,12 @@
 
 /**
  * @file bt_hal_manager_types.h
- * @addtogroup HAL_BLUETOOTH
  * @brief This BT HAL provides the interfaces to control the Bluetooth power states
  * ,local device control and device discovery functionalities
  * USAGE
  * -----
  *
- * @{
+ *
  */
 #ifndef _BT_HAL_MANAGER_TYPES_H_
 #define _BT_HAL_MANAGER_TYPES_H_
@@ -40,17 +39,25 @@
 #include <stdbool.h>
 
 /**
+ * @ingroup bt_hal_constants
  * @brief Size in byte of 128bits UUID.
  */
 #define bt128BIT_UUID_LEN    16
 
 /**
+ * @ingroup bt_hal_constants
  * @brief Size in byte of BT/BLE addresses.
  */
 #define btADDRESS_LEN        6
+
+/**
+ * @ingroup bt_hal_constants
+ * @brief Maximum length of Random key.
+ */
 #define btKEY_MAX_LEN        16
 
 /**
+ * @ingroup bt_hal_enum_types
  * @brief UUID types.
  */
 typedef enum
@@ -61,6 +68,7 @@ typedef enum
 } BTuuidType_t;
 
 /**
+ * @ingroup bt_hal_struct_types
  * @brief BT/BLE address.
  */
 typedef struct
@@ -69,6 +77,7 @@ typedef struct
 } BTBdaddr_t;
 
 /**
+ * @ingroup bt_hal_struct_types
  * @brief Device Name.
  */
 typedef struct
@@ -78,6 +87,7 @@ typedef struct
 
 
 /**
+ * @ingroup bt_hal_struct_types
  * @brief UUID.
  */
 typedef struct
@@ -88,10 +98,11 @@ typedef struct
         uint16_t uu16;                      /**< UUID, 16 bits. */
         uint32_t uu32;                      /**< UUID, 32 bits. */
         uint8_t uu128[ bt128BIT_UUID_LEN ]; /**< UUID, 128 bits. */
-    } uu;
+    } uu;                                   /**< UUID Union. */
 } BTUuid_t;
 
 /**
+ * @ingroup bt_hal_enum_types
  * @brief Bluetooth Error Status .
  */
 typedef enum
@@ -112,6 +123,10 @@ typedef enum
     eBTStatusLinkLoss = 13       /**< Link lost. */
 } BTStatus_t;
 
+/**
+ * @ingroup bt_hal_enum_types
+ * @brief Bluetooth Profile .
+ */
 typedef enum
 {
     eProfileHeadset = 0,           /**< Headset and Handsfree profile. */
@@ -128,6 +143,7 @@ typedef enum
 } BTProfile_t;
 
 /**
+ * @ingroup bt_hal_enum_types
  * @brief Input Output device type.
  */
 typedef enum
@@ -140,4 +156,4 @@ typedef enum
 } BTIOtypes_t;
 
 #endif /* _BT_HAL_MANAGER_TYPES_H_ */
-/** @} */
+

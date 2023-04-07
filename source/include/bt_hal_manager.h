@@ -25,17 +25,15 @@
 
 /**
  * @file bt_hal_manager.h
- * @addtogroup HAL_BLUETOOTH
  * @brief BT provides the interfaces to control the Bluetooth device.
  * ,local device control and device discovery functionalities
  *
- * The common generique access profile is the starting point of Bluetooth API.
+ * The common generic access profile is the starting point of Bluetooth API.
  * The flow is the following:
  * 1. pxBtManagerInit
  * 2. pxEnable (if wished)
  * 3. pxGetClassicAdapter or/and pxGetLEAdapter to initialize them
  *
- * @{
  */
 #ifndef _BT_HAL_MANAGER_H_
 #define _BT_HAL_MANAGER_H_
@@ -46,25 +44,33 @@
 #include "bt_hal_manager_types.h"
 
 /**
+ * @ingroup bt_hal_constants
  * @brief  Incompatible API changes without backward compatibility.
  */
 #define btMAJOR_VERSION    5
 
 /**
+ * @ingroup bt_hal_constants
  * @brief Add new functionality with backward compatibility.
  */
 #define btMINOR_VERSION    1
 
 /**
+ * @ingroup bt_hal_constants
  * @brief Make changes in the API with backward compatibility.
  */
 #define btPATCH_VERSION    0
 
+
 /**
+ * @cond DOXYGEN_IGNORE
+ * Doxygen should ignore this section, these MACROS are private.
  * @brief  Help functions to convert version to string.
  */
 #define btSTR_HELPER( x, y, z )    # x "." # y "." # z
 #define btSTR( x, y, z )           btSTR_HELPER( x, y, z )
+
+/** @endcond */
 
 /**
  * @brief  Stringified version number.
@@ -74,11 +80,12 @@
 /**
  * Stack feature support bit mask
  */
-#define btBLE_ADD_BLOB_SERVICE_SUPPORTED_BIT    0x0001 /** Support GATT server database decleration as a blob. */
-#define btBLE_ADD_BLE_DYNAMIC_PRIVACY           0x0002 /** Stack can dynamicall enable or disable privacy. */
-#define btBLE_BLE_CENTRAL_WHITELISTING          0x0004 /** Provide a mechanism to manage whitelist for Gatt server. */
+#define btBLE_ADD_BLOB_SERVICE_SUPPORTED_BIT    0x0001 /**< Support GATT server database decleration as a blob. */
+#define btBLE_ADD_BLE_DYNAMIC_PRIVACY           0x0002 /**< Stack can dynamicall enable or disable privacy. */
+#define btBLE_BLE_CENTRAL_WHITELISTING          0x0004 /**< Provide a mechanism to manage whitelist for Gatt server. */
 
 /**
+ * @ingroup bt_hal_enum_types
  * @brief Security Level.
  */
 enum
@@ -88,9 +95,10 @@ enum
     eBTSecLevelAuthenticatedPairing = 0x03,   /**< Mode 1 level 3, Authenticated pairing with encryption. */
     eBTSecLevelSecureConnect = 0x04,          /**< Mode 1 level 4, Authenticated LE Secure Connections pairing with encryption using a 128-bit strength encryption key. */
 };
-typedef uint8_t BTSecurityLevel_t;
+typedef uint8_t BTSecurityLevel_t;      /**< BT Security Level. */
 
 /**
+ * @ingroup bt_hal_enum_types
  * @brief Authentication requirement.
  */
 enum
@@ -100,9 +108,10 @@ enum
     eBTAuthReqSecureConnect = 0x04, /**< Authenticated encryption. */
     eBTAuthReqKeyPress = 0x05,
 };
-typedef uint8_t BTAuthReq_t;
+typedef uint8_t BTAuthReq_t;    /**< BT Authentication Requirement. */
 
 /**
+ * @ingroup bt_hal_enum_types
  * @brief Preferred physical Transport for GATT connection .
  */
 typedef enum
@@ -113,6 +122,7 @@ typedef enum
 } BTTransport_t;
 
 /**
+ * @ingroup bt_hal_enum_types
  * @brief Bluetooth power State.
  */
 typedef enum
@@ -122,6 +132,7 @@ typedef enum
 } BTState_t;
 
 /**
+ * @ingroup bt_hal_struct_types
  * @brief Bluetooth PinKey Code, Valid only for BT legacy.
  */
 typedef struct
@@ -130,6 +141,7 @@ typedef struct
 } BTPinCode_t;
 
 /**
+ * @ingroup bt_hal_enum_types
  * @brief Authentication failure reasons.
  */
 typedef enum
@@ -170,6 +182,7 @@ typedef enum
 
 
 /**
+ * @ingroup bt_hal_enum_types
  * @brief Bluetooth local device and Remote Device property types.
  * Properties common to both adapter and remote device.
  */
@@ -243,7 +256,7 @@ typedef enum
     /**
      * Description - I/O flag.
      *
-     * @WARNING: eBTpropertyIO has a dependency on the property eBTpropertySecureConnectionOnly.
+     * @warning: eBTpropertyIO has a dependency on the property eBTpropertySecureConnectionOnly.
      * Only I/O yes/no is compatible with eBTpropertySecureConnectionOnly = 1
      *
      * Access mode - SET/GET
@@ -261,7 +274,7 @@ typedef enum
     /**
      * Description - Secure only mode flag.
      *
-     * @WARNING: Secure connections only has a dependency on the property eBTpropertyIO.
+     * @warning: Secure connections only has a dependency on the property eBTpropertyIO.
      *  Only I/O yes/no is compatible with eBTpropertySecureConnectionOnly = 1
      *
      * Access mode - SET/GET
@@ -271,6 +284,7 @@ typedef enum
 } BTPropertyType_t;
 
 /**
+ * @ingroup bt_hal_struct_types
  * @brief Bluetooth Adapter Property data structure.
  */
 typedef struct
@@ -281,6 +295,7 @@ typedef struct
 } BTProperty_t;
 
 /**
+ * @ingroup bt_hal_struct_types
  * @brief Bluetooth Out Of Band data for bonding.
  */
 typedef struct
@@ -296,6 +311,7 @@ typedef struct
 } BTOutOfBandData_t;
 
 /**
+ * @ingroup bt_hal_enum_types
  * @brief Bluetooth Device Type.
  */
 typedef enum
@@ -305,15 +321,19 @@ typedef enum
     eBTdeviceDevtypeDual,        /**< Device with BLE and BT classic. */
 } BTDeviceType_t;
 
-/** Bluetooth Bond state */
+/**
+ * @ingroup bt_hal_enum_types
+ * @brief Bluetooth Bond state
+ * */
 typedef enum
 {
-    eBTbondStateNone,
-    eBTbondStateBonding,
-    eBTbondStateBonded,
+    eBTbondStateNone,           /**< None Bond State. */
+    eBTbondStateBonding,        /**< Bonding State. */
+    eBTbondStateBonded,         /**< Bonded State. */
 } BTBondState_t;
 
 /**
+ * @ingroup bt_hal_enum_types
  * @brief Bluetooth SSP Bonding Variant.
  */
 typedef enum
@@ -325,11 +345,12 @@ typedef enum
 } BTSspVariant_t;
 
 /**
+ * @ingroup bt_hal_struct_types
  * @brief Energy info.
  */
 typedef struct
 {
-    uint8_t ucStatus;
+    uint8_t ucStatus;       /**< Energy Info Status. */
     uint8_t ucCtrlState;    /**< stack reported state. */
     uint64_t ullTxTime;     /**< in ms. */
     uint64_t ullRxTime;     /**< in ms. */
@@ -338,16 +359,18 @@ typedef struct
 } BTActivityEnergyInfo;
 
 /**
+ * @ingroup bt_hal_struct_types
  * @brief UUID traffic info.
  */
 typedef struct
 {
-    int32_t lAppUid;
-    uint64_t ullTxBytes;
-    uint64_t ullRxBytes;
+    int32_t lAppUid;        /**< APP UID. */
+    uint64_t ullTxBytes;    /**< TX Bytes. */
+    uint64_t ullRxBytes;    /**< RX Bytes. */
 } BTUidTraffic_t;
 
 /**
+ * @ingroup bt_hal_enum_types
  * @brief Bluetooth ACL connection state
  */
 typedef enum
@@ -357,6 +380,7 @@ typedef enum
 } BTAclState_t;
 
 /**
+ * @ingroup bt_hal_enum_types
  * @brief Bluetooth ACL Disconnect Reason
  * From Bluetooth Core Spec 5.0 Vol 2, Part D Error Codes
  * Unknown disconnect reason will be treated as @ref eBTaclUnspecified
@@ -427,6 +451,8 @@ typedef enum
 } BTAclDisconnectReason_t;
 
 /**
+ * @ingroup bt_device_management_callbacks
+ *
  * @brief Bluetooth state change Callback. Invoked on pxEnable/pxDisable.
  *
  * @param[in] xState Device event, triggered on state change. (switched on or off).
@@ -434,6 +460,8 @@ typedef enum
 typedef void ( * BTDeviceStateChangedCallback_t )( BTState_t xState );
 
 /**
+ * @ingroup bt_device_management_callbacks
+ *
  * @brief GET/SET local device Properties callback.
  *
  * @param[in] xStatus Returns eBTStatusSuccess if operation succeeded.
@@ -445,6 +473,8 @@ typedef void ( * BTDevicePropertiesCallback_t )( BTStatus_t xStatus,
                                                  BTProperty_t * pxProperties );
 
 /**
+ * @ingroup bt_device_management_callbacks
+ *
  * @brief GET/SET Remote Device Properties callback.
  * Invoked on pxGetRemoteDeviceProperty, pxSetRemoteDeviceProperty, pxGetAllRemoteDeviceProperties.
  *
@@ -459,6 +489,8 @@ typedef void ( * BTRemoteDevicePropertiesCallback_t )( BTStatus_t xStatus,
                                                        BTProperty_t * pxProperties );
 
 /**
+ * @ingroup bt_device_management_callbacks
+ *
  * @brief Callback Invoked on Pin Request.
  *
  * @param[in] pxRemoteBdAddr remote Device address
@@ -474,6 +506,8 @@ typedef void (* BTPinRequestCallback_t)( BTBdaddr_t * pxRemoteBdAddr,
 
 
 /**
+ * @ingroup bt_device_management_callbacks
+ *
  * @brief Callback Invoked on SSP event.
  *
  * Bluetooth SSP Request callback - Just Works & Numeric Comparison
@@ -494,6 +528,8 @@ typedef void ( * BTSspRequestCallback_t )( BTBdaddr_t * pxRemoteBdAddr,
                                            uint32_t ulPassKey );
 
 /**
+ * @ingroup bt_device_management_callbacks
+ *
  * @brief Bluetooth pairing state changed event callback.
  * Invoked in response to create_bond, cancel_bond or remove_bond
  * reason field is valid only in case of xStatus == eBTStatusFail.
@@ -512,6 +548,8 @@ typedef void ( * BTPairingStateChangedCallback_t )( BTStatus_t xStatus,
                                                     BTAuthFailureReason_t xReason );
 
 /**
+ * @ingroup bt_device_management_callbacks
+ *
  * @brief Callback invoked on pxReadEnergyInfo. Invoked on pxReadEnergyInfo.
  *
  * Ctrl_state-Current controller state-Active-1,scan-2,or idle-3 state as defined by HCI spec.
@@ -529,6 +567,8 @@ typedef void ( * BTEnergyInfoCallback_t )( BTActivityEnergyInfo * pxEnergyInfo,
                                            BTUidTraffic_t * pxUidData );
 
 /**
+ * @ingroup bt_device_management_callbacks
+ *
  * @brief Bluetooth Test Mode Callback. Invoked when remote device uses pxDutModeSend.
  *
  * @param[in] usOpcode
@@ -545,6 +585,8 @@ typedef void ( * BTDutModeRecvCallback_t )( uint16_t usOpcode,
  * The num_packets is valid only for le_test_end command */
 
 /**
+ * @ingroup bt_device_management_callbacks
+ *
  * @brief LE Test mode callbacks. Invoked on pxLeTestMode.
  *
  * @param[in] xStatus Returns eBTStatusSuccess if operation succeeded.
@@ -554,6 +596,8 @@ typedef void ( * BTLeTestModeCallback_t )( BTStatus_t xStatus,
                                            uint16_t usNumPackets );
 
 /**
+ * @ingroup bt_device_management_callbacks
+ *
  * @brief Read RSSI Callback. Invoked on pxReadRssi.
  *
  * @param[in] pxBda Remote device address.
@@ -565,6 +609,8 @@ typedef void ( * BTReadRssiCallback_t )( BTBdaddr_t * pxBda,
                                          BTStatus_t xStatus );
 
 /**
+ * @ingroup bt_device_management_callbacks
+ *
  * @brief Security request callback. Invoked on master from remote slave security request event.
  *
  * @param[in] pxBda Remote device address.
@@ -576,6 +622,8 @@ typedef void ( * BTSlaveSecurityRequestCallBack_t )( BTBdaddr_t * pxBda,
                                                      bool bBonding );
 
 /**
+ * @ingroup bt_device_management_callbacks
+ *
  * @brief TX power  Callback. Invoked on pxGetTxpower.
  *
  * @param[in] pxBda Remote device address.
@@ -596,6 +644,8 @@ typedef void ( * BTBondedCallback_t)( BTStatus_t xStatus,
                                       bool bIsBonded );
 
 /**
+ * @ingroup bt_device_management_callbacks
+ *
  * @brief Callback invoked in response to ACL connection state change.
  *
  * @param[in] xStatus Returns eBTStatusSuccess if operation succeeded.
@@ -612,6 +662,7 @@ typedef void (* BTAclStateChangedCallback_t)( BTStatus_t xStatus,
                                               BTAclDisconnectReason_t xReason );
 
 /**
+ * @ingroup bt_hal_struct_types
  * @brief Bluetooth DM callback structure.
  */
 typedef struct
@@ -633,6 +684,7 @@ typedef struct
 } BTCallbacks_t;
 
 /**
+ * @ingroup bt_hal_struct_types
  * @brief Represents the standard SAL device management interface.
  */
 typedef struct
@@ -648,7 +700,7 @@ typedef struct
     /**
      * @brief Free up the memory
      *
-     * @Warning: Note that similarly to pxBtManagerInit. Memory of adapter of server/client needs to be freed first (by calling pxUnregisterBleApp for example)
+     * @warning: Note that similarly to pxBtManagerInit. Memory of adapter of server/client needs to be freed first (by calling pxUnregisterBleApp for example)
      *
      * @return Returns eBTStatusSuccess on successful call.
      */
@@ -969,7 +1021,10 @@ typedef struct
     BTStatus_t ( * pxGetStackFeaturesSupport )( uint32_t * pulFeatureMask );
 } BTInterface_t;
 
+
+/** Gets the BT Adapter interface.
+ * @return BTInterface_t if the operation is successful, else NULL.
+ */
 const BTInterface_t * BTGetBluetoothInterface( void );
 
 #endif /* _BT_HAL_MANAGER_H_ */
-/** @} */

@@ -24,13 +24,13 @@
  */
 
 /**
- * @file bt_avsrc_profile.h
+ * @file bt_hal_avsrc_profile.h
  * @brief BT HAL provides the interfaces for A2DP Source profile for local device.
- * @addtogroup HAL_BLUETOOTH
+ *
  * USAGE
  * -----
  *
- * @{
+ *
  */
 
 
@@ -42,6 +42,7 @@
 #include "bt_hal_manager_types.h"
 
 /**
+ * @ingroup bt_hal_enum_types
  * @brief Bluetooth AV connection states
  */
 typedef enum
@@ -53,6 +54,7 @@ typedef enum
 } BTAvConnectionState_t;
 
 /**
+ * @ingroup bt_hal_enum_types
  * @brief Bluetooth AV data path states
  */
 typedef enum
@@ -63,6 +65,7 @@ typedef enum
 } BTAvAudioState_t;
 
 /**
+ * @ingroup bt_hal_enum_types
  * @brief Bluetooth AV ACL Priority
  */
 typedef enum
@@ -74,6 +77,8 @@ typedef enum
 /** Audio callback structure */
 
 /**
+ * @ingroup bt_A2DP_connection_callbacks
+ *
  * @brief Callback invoked in to notify AV connection state change
  *
  * @param[in] xState Connection state
@@ -83,6 +88,8 @@ typedef void (* BTAvsrcConnectionStateCallback_t)( BTAvConnectionState_t xState,
                                                    BTBdaddr_t * pxBdAddr );
 
 /**
+ * @ingroup bt_A2DP_connection_callbacks
+ *
  * @brief Callback invoked in to notify AV Audio state change
  *
  * @param[in] xState Audio state
@@ -93,6 +100,8 @@ typedef void (* BTAvsrcAudioStateCallback_t)( BTAvAudioState_t xState,
 
 
 /**
+ * @ingroup bt_A2DP_connection_callbacks
+ *
  * @brief Callback invoked when ACL priority changes
  * Priority can change when the stack enables/disables silent A2DP data while
  * A2DP keepalive feature is enabled.
@@ -103,15 +112,23 @@ typedef void (* BTAvsrcAudioStateCallback_t)( BTAvAudioState_t xState,
 typedef void (* BTAvsrcAclPriorityCallback_t)( BTAvsrcAclPriority_t xPriority,
                                                BTBdaddr_t * pxBdAddr );
 
+/**
+ * @ingroup bt_hal_struct_types
+ * @brief Represents the AVSRC callbacks.
+ * */
 typedef struct
 {
-    size_t xSize;
-    BTAvsrcConnectionStateCallback_t xConnStateCback; /**< Connection state callback */
-    BTAvsrcAudioStateCallback_t xAudioStateCback;     /**< Connection state callback */
-    BTAvsrcAclPriorityCallback_t xAclPriorityCback;   /**< ACL priority callback */
+    size_t xSize;                                     /**< Size. */
+    BTAvsrcConnectionStateCallback_t xConnStateCback; /**< Connection state callback. */
+    BTAvsrcAudioStateCallback_t xAudioStateCback;     /**< Connection state callback. */
+    BTAvsrcAclPriorityCallback_t xAclPriorityCback;   /**< ACL priority callback. */
 } BTAvsrcCallbacks_t;
 
-/** Represents the standard AV connection interface. */
+
+/**
+ * @ingroup bt_hal_struct_types
+ * @brief Represents the standard AV connection interface.
+ * */
 typedef struct
 {
     /** Set this to size of  BTAvsrcInterface_t*/
@@ -147,7 +164,11 @@ typedef struct
     BTStatus_t ( * pxAvsrcDisconnect )( BTBdaddr_t * pxRemote_addr );
 } BTAvsrcInterface_t;
 
+
+/** Gets the BT AV interface.
+ * @return BTAvsrcInterface_t if the operation is successful, else NULL.
+ */
 const BTAvsrcInterface_t * BT_GetAvsrcInterface();
 
 #endif /* _BT_HAL_AVSRC_PROFILE_H */
-/** @} */
+

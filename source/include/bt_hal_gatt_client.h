@@ -27,14 +27,12 @@
  * @file bt_hal_gatt_client.h
  *
  * @brief BT GATT Client provides the interfaces to use Bluetooth GATT client feature
- * @addtogroup HAL_BLUETOOTH
  *
  * Before calling any GATT client function, the Generic Access Profile needs
  * to be initialized (see bt_hal_manager.h and bt_hal_manager_adapter.h).
  * After GAP has been initialized, pxGattClientInit must be called to register
  * callbacks. After this, pxConnect can be called to connect to a GATT server.
  *
- * @{
  */
 
 #ifndef _BT_HAL_GATT_CLIENT_H_
@@ -46,64 +44,70 @@
 
 
 /**
+ * @ingroup bt_hal_struct_types
  * @brief Buffer type for unformatted reads/writes.
  */
 typedef struct
 {
-    uint8_t ucValue[ btGATT_MAX_ATTR_LEN ];
-    uint16_t usLen;
+    uint8_t ucValue[ btGATT_MAX_ATTR_LEN ];    /**< Read/Write Value. */
+    uint16_t usLen;                            /**< Read/Write Value Length. */
 } BTGattUnformattedValue_t;
 
 /**
+ * @ingroup bt_hal_struct_types
  * @brief Parameters for GATT read operations.
  */
 typedef struct
 {
-    uint16_t usHandle;
-    BTGattUnformattedValue_t xValue;
-    uint16_t usValueType;
-    uint8_t ucStatus;
+    uint16_t usHandle;                  /**< GATT Attribute Handle. */
+    BTGattUnformattedValue_t xValue;    /**< Read Value. */
+    uint16_t usValueType;               /**< Read Value Type. */
+    uint8_t ucStatus;                   /**< Read Operation Status. */
 } BTGattReadParams_t;
 
 /**
+ * @ingroup bt_hal_struct_types
  * @brief Parameters for GATT write operations.
  */
 typedef struct
 {
-    BTGattSrvcId_t xSrvcId;
-    BTGattInstanceId_t xCharId;
-    BTGattInstanceId_t xDescrId;
-    uint8_t ucStatus;
+    BTGattSrvcId_t xSrvcId;             /**< GATT Service ID. */
+    BTGattInstanceId_t xCharId;         /**< GATT Characteristic UUID. */
+    BTGattInstanceId_t xDescrId;        /**< GATT Descriptor UUID. */
+    uint8_t ucStatus;                   /**< Write Operation Status. */
 } BTGattWriteParams_t;
 
 /**
+ * @ingroup bt_hal_struct_types
  * @brief Parameters for attribute change notifications.
  */
 typedef struct
 {
-    uint8_t ucValue[ btGATT_MAX_ATTR_LEN ];
-    BTBdaddr_t xBda;
-    uint16_t usHandle;
-    size_t xLen;
-    bool bIsNotify;
+    uint8_t ucValue[ btGATT_MAX_ATTR_LEN ];     /**< Attribute Value. */
+    BTBdaddr_t xBda;                            /**< BT/BLE Address. */
+    uint16_t usHandle;                          /**< GATT Attribute Handle. */
+    size_t xLen;                                /**< Value Length. */
+    bool bIsNotify;                             /**< To Notify or Not. */
 } BTGattNotifyParams_t;
 
 /**
+ * @ingroup bt_hal_struct_types
  * @brief Parameters for test command interface.
  */
 typedef struct
 {
-    BTBdaddr_t * pxBda1;
-    BTUuid_t * pxUuid1;
-    uint16_t usU1;
-    uint16_t usU2;
-    uint16_t usU3;
-    uint16_t usU4;
-    uint16_t usU5;
+    BTBdaddr_t * pxBda1;    /**< BT/BLE address. */
+    BTUuid_t * pxUuid1;     /**< BT/BLE UUID. */
+    uint16_t usU1;          /**< Parameter 1. */
+    uint16_t usU2;          /**< Parameter 2. */
+    uint16_t usU3;          /**< Parameter 3. */
+    uint16_t usU4;          /**< Parameter 4. */
+    uint16_t usU5;          /**< Parameter 5. */
 } BTGattTestParams_t;
 
 
 /**
+ * @ingroup bt_hal_enum_types
  * @brief BT GATT client error codes.
  */
 typedef enum
@@ -127,6 +131,8 @@ typedef enum
 /** BT-GATT Client callback structure. */
 
 /**
+ * @ingroup bt_gatt_client_callbacks
+ *
  * @brief Callback invoked in response pxRegisterClient when the GATT client
  * registration has been completed.
  *
@@ -141,6 +147,8 @@ typedef void ( * BTRegisterClientCallback_t)( BTGattStatus_t xStatus,
                                               BTUuid_t * pxAppUuid );
 
 /**
+ * @ingroup bt_gatt_client_callbacks
+ *
  * @brief Callback invoked in response to pxSearchService when the GATT service search
  *  has been completed.
  *
@@ -153,6 +161,8 @@ typedef void ( * BTSearchCompleteCallback_t)( uint16_t usConnId,
                                               BTGattStatus_t xStatus );
 
 /**
+ * @ingroup bt_gatt_client_callbacks
+ *
  * @brief Callback invoked in response to pxRegisterForNotification and
  *   pxUnregisterForNotification.
  *
@@ -172,6 +182,8 @@ typedef void ( * BTRegisterForNotificationCallback_t)( uint16_t usConnId,
                                                        uint16_t usHandle );
 
 /**
+ * @ingroup bt_gatt_client_callbacks
+ *
  * @brief Remote device notification callback, invoked when a remote device sends
  *  a notification or indication that a client has registered for.
  *
@@ -184,6 +196,8 @@ typedef void ( * BTNotifyCallback_t)( uint16_t usConnId,
                                       BTGattNotifyParams_t * pxData );
 
 /**
+ * @ingroup bt_gatt_client_callbacks
+ *
  * @brief Reports result of a GATT read operation. Triggered by pxReadCharacteristic.
  *
  * @param[in] usConnId Connection Identifier, created and returned on connection event,
@@ -198,6 +212,8 @@ typedef void ( * BTReadCharacteristicCallback_t)( uint16_t usConnId,
                                                   BTGattReadParams_t * pxData );
 
 /**
+ * @ingroup bt_gatt_client_callbacks
+ *
  * @brief GATT write characteristic operation callback. Triggered by
  *  pxWriteCharacteristic.
  *
@@ -213,6 +229,8 @@ typedef void ( * BTWriteCharacteristicCallback_t)( uint16_t usConnId,
                                                    uint16_t usHandle );
 
 /**
+ * @ingroup bt_gatt_client_callbacks
+ *
  * @brief GATT execute prepared write callback. Triggered by pxExecuteWrite.
  *
  * @param[in] usConnId Connection Identifier, created and returned on connection event,
@@ -224,6 +242,8 @@ typedef void ( * BTExecuteWriteCallback_t)( uint16_t usConnId,
                                             BTGattStatus_t xStatus );
 
 /**
+ * @ingroup bt_gatt_client_callbacks
+ *
  * @brief Callback invoked in response to pxReadDescriptor.
  *
  * @param[in] usConnId Connection Identifier, created and returned on connection event,
@@ -238,6 +258,8 @@ typedef void ( * BTReadDescriptorCallback_t)( uint16_t usConnId,
                                               BTGattReadParams_t * pxData );
 
 /**
+ * @ingroup bt_gatt_client_callbacks
+ *
  * @brief Callback invoked in response to pxWriteDescriptor.
  *
  * @param[in] usConnId Connection Identifier, created and returned on connection event,
@@ -252,6 +274,8 @@ typedef void ( * BTWriteDescriptorCallback_t)( uint16_t usConnId,
                                                uint16_t usHandle );
 
 /**
+ * @ingroup bt_gatt_client_callbacks
+ *
  * @brief Callback indicating the status of a listen() operation.
  *
  *  Callback has been deprecated, use BTAdvStatusCallback_t
@@ -261,6 +285,8 @@ typedef void ( * BTListenCallback_t)( BTGattStatus_t xStatus,
                                       uint32_t ulServerIf );
 
 /**
+ * @ingroup bt_gatt_client_callbacks
+ *
  * @brief Callback invoked when the MTU for a given connection changes.
  *  Triggered by pxConfigureMtu.
  *
@@ -276,6 +302,8 @@ typedef void ( * BTConfigureMtuCallback_t)( uint16_t usConnId,
                                             uint32_t ulMtu );
 
 /**
+ * @ingroup bt_gatt_client_callbacks
+ *
  * @brief GATT get database callback. Triggered by pxGetGattDb.
  *
  * @param[in] usConnId Connection Identifier, created and returned on connection event,
@@ -290,6 +318,8 @@ typedef void ( * BTGetGattDbCallback_t)( uint16_t usConnId,
                                          uint32_t ulCount );
 
 /**
+ * @ingroup bt_gatt_client_callbacks
+ *
  * @brief GATT services between startHandle and endHandle were removed.
  *
  * @param[in] usConnId Connection Identifier, created and returned on connection event,
@@ -304,6 +334,8 @@ typedef void ( * BTServicesRemovedCallback_t)( uint16_t usConnId,
                                                uint16_t usEndHandle );
 
 /**
+ * @ingroup bt_gatt_client_callbacks
+ *
  * @brief GATT services were added
  *
  * @param[in] usConnId Connection Identifier, created and returned on connection event,
@@ -316,30 +348,36 @@ typedef void ( * BTServicesRemovedCallback_t)( uint16_t usConnId,
 typedef void ( * BTServicesAddedCallback_t)( uint16_t usConnId,
                                              BTGattDbElement_t * pxAdded,
                                              uint32_t ulAddedCount );
-
+/**
+ * @ingroup bt_hal_struct_types
+ * @brief Represents the BT-GATT client callbacks.
+ * */
 typedef struct
 {
-    BTRegisterClientCallback_t pxRegisterClientCb;
-    BTConnectCallback_t pxOpenCb;
-    BTDisconnectCallback_t pxCloseCb;
-    BTSearchCompleteCallback_t pxSearchCompleteCb;
-    BTRegisterForNotificationCallback_t pxRegisterForNotificationCb;
-    BTNotifyCallback_t pxNotifyCb;
-    BTReadCharacteristicCallback_t pxReadCharacteristicCb;
-    BTWriteCharacteristicCallback_t pxWriteCharacteristicCb;
-    BTReadDescriptorCallback_t pxReadDescriptorCb;
-    BTWriteDescriptorCallback_t pxWriteDescriptorCb;
-    BTExecuteWriteCallback_t pxExecuteWriteCb;
-    BTReadRemoteRssiCallback_t pxReadRemoteRssiCb;
-    BTListenCallback_t pxListenCb; /** Deprecated */
-    BTConfigureMtuCallback_t pxConfigureMtuCb;
-    BTCongestionCallback_t pxCongestionCb;
-    BTGetGattDbCallback_t pxGetGattDbCb;
-    BTServicesRemovedCallback_t pxServicesRemovedCb;
-    BTServicesAddedCallback_t pxServicesAddedCb;
+    BTRegisterClientCallback_t pxRegisterClientCb;                      /**< Callback of pxRegisterClient. */
+    BTConnectCallback_t pxOpenCb;                                       /**< Callback of pxOpen. */
+    BTDisconnectCallback_t pxCloseCb;                                   /**< Callback of pxClose. */
+    BTSearchCompleteCallback_t pxSearchCompleteCb;                      /**< Callback of pxSearchComplete. */
+    BTRegisterForNotificationCallback_t pxRegisterForNotificationCb;    /**< Callback of pxRegisterForNotification. */
+    BTNotifyCallback_t pxNotifyCb;                                      /**< Callback of pxNotify. */
+    BTReadCharacteristicCallback_t pxReadCharacteristicCb;              /**< Callback of pxReadCharacteristic. */
+    BTWriteCharacteristicCallback_t pxWriteCharacteristicCb;            /**< Callback of pxWriteCharacteristic. */
+    BTReadDescriptorCallback_t pxReadDescriptorCb;                      /**< Callback of pxReadDescriptor. */
+    BTWriteDescriptorCallback_t pxWriteDescriptorCb;                    /**< Callback of pxWriteDescriptor. */
+    BTExecuteWriteCallback_t pxExecuteWriteCb;                          /**< Callback of pxExecuteWrite. */
+    BTReadRemoteRssiCallback_t pxReadRemoteRssiCb;                      /**< Callback of pxReadRemoteRssi. */
+    BTListenCallback_t pxListenCb;                                      /**< Deprecated */
+    BTConfigureMtuCallback_t pxConfigureMtuCb;                          /**< Callback of pxConfigureMtu. */
+    BTCongestionCallback_t pxCongestionCb;                              /**< Callback of pxCongestion. */
+    BTGetGattDbCallback_t pxGetGattDbCb;                                /**< Callback of pxGetGattDb. */
+    BTServicesRemovedCallback_t pxServicesRemovedCb;                    /**< Callback of pxServicesRemoved. */
+    BTServicesAddedCallback_t pxServicesAddedCb;                        /**< Callback of pxServicesAdded. */
 } BTGattClientCallbacks_t;
 
-/** Represents the standard  BT-GATT client interface. */
+/**
+ * @ingroup bt_hal_struct_types
+ * @brief Represents the standard  BT-GATT client interface.
+ * */
 typedef struct
 {
     /**
@@ -638,4 +676,4 @@ typedef struct
 } BTGattClientInterface_t;
 
 #endif /* #ifndef _BT_HAL_GATT_CLIENT_H_ */
-/** @} */
+
