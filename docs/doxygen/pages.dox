@@ -1,0 +1,135 @@
+/**
+@mainpage Overview
+@anchor COMMON_IO-BLE
+@brief Hardware abstraction layer for Bluetooth.
+
+BT HAL provides the interfaces to control the Bluetooth device. The following operations can be done using BT HAL:
+- Controlling the Bluetooth power states.
+- Local device control.
+- Device discovery functionalities.
+*/
+
+/**
+@page bt_hal_manager_interface Bluethooth Device Management Interface
+@brief Bluetooth HAL provides the interfaces to control the Bluetooth device, local device control and device discovery functionalities.
+ *
+ * The common generic access profile is the starting point of Bluetooth API.
+ * The flow is the following:
+ * 1. pxBtManagerInit
+ * 2. pxEnable (if wished)
+ * 3. pxGetClassicAdapter or/and pxGetLEAdapter to initialize them
+
+ The standard BT device management interface is represented by @ref BTInterface_t
+
+ The standard BT device management callbacks can be found here @ref bt_device_management_callbacks
+*/
+
+/**
+@page bt_hal_manager_adapter_ble_interface BLE Adapter Manager Interface
+@brief BT manager for BLE adapter, provide GAP API functions that are specific to BLE.
+
+Before calling pxRegisterBleApp, common GAP need to be enabled and started.
+Flow of the functions:
+1. pxBleAdapterInit
+2. pxRegisterBleApp
+3. Get the GATT interface to initialize GATT.
+
+The standard BLE device management interface is represented by @ref BTBleAdapter_t
+
+The BLE device management callbacks can be found here @ref ble_adapter_manager_callbacks
+*/
+
+/**
+@page bt_hal_manager_adapter_classic_interface BT Classic Adapter Manager Interface
+@brief BT Classic Adapter provides the interfaces to control Bluetooth classic (BR/EDR), functionalities of local device control and device discovery functionalities.
+
+The standard SAL BT Classic device management interface is represented by @ref BTClassicInterface_t
+
+The BT Classic device management callbacks can be found here @ref bt_classic_adapter_manager_callbacks
+*/
+
+/**
+@page bt_hal_gatt_server_interface BT-GATT Server Interface
+@brief BT GATT Server provides the interfaces to use Bluetooth GATT server feature
+
+ Before calling any GATT server function, the Generic Access Profile needs to be initialized (see bt_hal_manager.h and bt_hal_manager_adapter*.h).
+ bt_hal_manager.h give the starting point.
+ After GAP has been initialized, the functions need to be called in that order:
+ 1. pxRegisterServer: Need to be called first to get the server Interface
+ 2. pxGattServerInit: Provided callbacks
+ 3. pxAddService: Create memory space for a service
+ 4. pxAddCharacteristic: Then all calls to pxAddDescriptor will add the descriptor to that characteristic
+ 5. pxStartService: Complete service create. Another service can be create afterward.
+
+The BT-GATT server interface is represented by @ref BTGattServerInterface_t
+
+The BT-GATT server callbacks can be found here @ref bt_gatt_server_callbacks
+ */
+
+/**
+@page bt_hal_gatt_client_interface BT-GATT Client Interface
+@brief BT GATT Client provides the interfaces to use Bluetooth GATT client feature
+
+Before calling any GATT client function, the Generic Access Profile needs to be initialized (see bt_hal_manager.h and bt_hal_manager_adapter.h).
+After GAP has been initialized, the functions need to be called in the following order:
+1. pxGattClientInit: Need to called to register callbacks.
+2. pxConnect: Can be called to connect to a GATT server.
+
+The BT-GATT client interface is represented by @ref BTGattClientInterface_t
+
+The BT-GATT client callbacks can be found here @ref bt_gatt_client_callbacks
+*/
+
+/**
+@page bt_hal_avsrc_profile BT A2DP Connection Interface
+@brief BT HAL provides the interfaces for A2DP Source profile for local device.
+
+The standard A2DP connection interface is represented by @ref BTAvsrcInterface_t
+
+The A2DP connection callbacks can be found here @ref bt_A2DP_connection_callbacks
+*/
+
+/**
+@defgroup bt_device_management_callbacks Bluethooth Device Management Callbacks
+@brief Callbacks for Bluethooth Device Management Interface
+*/
+
+/**
+@defgroup ble_adapter_manager_callbacks BLE Adapter Manager Callbacks
+@brief Callbacks for BLE Adapter Manager Interface
+*/
+
+/**
+@defgroup bt_classic_adapter_manager_callbacks BT Classic Adapter Manager Callbacks
+@brief Callbacks for BT Classic Adapter Manager Interface
+*/
+
+/**
+@defgroup bt_gatt_server_callbacks BT-GATT Server Callbacks
+@brief Callbacks for BT-GATT Server Interface
+*/
+
+/**
+@defgroup bt_gatt_client_callbacks BT-GATT Client Callbacks
+@brief Callbacks for BT-GATT Client Interface
+*/
+
+/**
+@defgroup bt_A2DP_connection_callbacks BT A2DP Connection Callbacks
+@brief Callbacks for A2DP Connection Interface
+*/
+
+/**
+@defgroup bt_hal_enum_types Enumerated Types
+@brief Enumerated types of the BT_HAL
+*/
+
+/**
+@defgroup bt_hal_struct_types Structures Types
+@brief Structures types of the BT_HAL
+*/
+
+/**
+@defgroup bt_hal_constants Constants
+@brief Constants defined in the BT_HAL
+*/
