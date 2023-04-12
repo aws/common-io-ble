@@ -25,13 +25,11 @@
 
 /**
  * @file bt_hal_manager_adapter_classic.h
- * @addtogroup HAL_BLUETOOTH
  * @brief BT Classic Adapter provides the interfaces to control Bluetooth classic (BR/EDR)
  * functionalities of local device control and device discovery functionalities
  * USAGE
  * -----
  *
- * @{
  */
 
 #ifndef _BT_HAL_MANAGER_ADAPTER_CLASSIC_
@@ -40,6 +38,7 @@
 #include "bt_hal_manager.h"
 
 /**
+ * @ingroup bt_hal_enum_types
  * @brief Bluetooth Adapter Visibility Modes
  */
 typedef enum
@@ -51,6 +50,7 @@ typedef enum
 
 
 /**
+ * @ingroup bt_hal_enum_types
  * @brief Bluetooth scan parameters
  */
 typedef enum
@@ -61,6 +61,7 @@ typedef enum
 
 
 /**
+ * @ingroup bt_hal_enum_types
  * @brief Bluetooth Adapter Discovery state
  */
 typedef enum
@@ -70,6 +71,7 @@ typedef enum
 } BTDiscoveryState_t;
 
 /**
+ * @ingroup bt_hal_enum_types
  * @brief Bluetooth ACL connection state
  */
 typedef enum
@@ -80,35 +82,39 @@ typedef enum
 
 
 /**
+ * @ingroup bt_hal_struct_types
  * @brief Bluetooth SDP service record
  */
 typedef struct
 {
-    BTUuid_t xUuid;
-    uint16_t usChannel;
-    char * cName; /* what's the maximum length */
+    BTUuid_t xUuid;          /**< UUID */
+    uint16_t usChannel;      /**< Channel */
+    char * cName;            /**< Service Name */
 } BTServiceRecord_t;
 
 /**
+ * @ingroup bt_hal_struct_types
  * @brief manufacturer information EIR data
  */
 typedef struct
 {
-    uint32_t ulVvendor;
-    uint32_t ulProduct;
+    uint32_t ulVvendor;     /**< Vendor ID. */
+    uint32_t ulProduct;     /**< Product ID. */
 } BTEirManfInfo_t;
 
 /**
+ * @ingroup bt_hal_struct_types
  * @brief gadget manufacturer information EIR data
  */
 typedef struct
 {
-    uint32_t ulVendor;
-    uint32_t ulProduct;
-    uint32_t ulUuid;
+    uint32_t ulVendor;      /**< Vendor ID. */
+    uint32_t ulProduct;     /**< Product ID. */
+    uint32_t ulUuid;        /**< Service Class UUID. */
 } BTGadgetEirManfInfo_t;
 
 /**
+ * @ingroup bt_hal_enum_types
  * @brief Bluetooth Scan types
  */
 typedef enum
@@ -118,6 +124,7 @@ typedef enum
 } BTScanType_t;
 
 /**
+ * @ingroup bt_hal_enum_types
  * @brief Classic Device Property Types
  */
 typedef enum
@@ -218,19 +225,21 @@ typedef enum
 } BTClassicPropertyType_t;
 
 /**
+ * @ingroup bt_hal_struct_types
  * @brief Classic Device Property
  */
 typedef struct
 {
-    BTClassicPropertyType_t xType;
-    size_t xLen;
-    void * pvVal;
+    BTClassicPropertyType_t xType;      /**< BT Classic Property Type. */
+    size_t xLen;                        /**< Value Length. */
+    void * pvVal;                       /**< Property Value. */
 } BTClassicProperty_t;
 
 /**
+ * @ingroup bt_classic_adapter_manager_callbacks
  *
- * @brief Callback invoked in response to @ref pxGetClassicDeviceProperty
- * and @ref pxSetClassicDeviceProperty.
+ * @brief Callback invoked in response to @ref BTClassicInterface_t::pxGetClassicDeviceProperty
+ * and @ref BTClassicInterface_t::pxSetClassicDeviceProperty.
  *
  * @param[in] xStatus Returns eBTStatusSuccess if operation succeeded.
  * @param[in] ulNumProperties Number of classic specific properties.
@@ -241,9 +250,10 @@ typedef void (* BTClassicDevicePropertiesCallback_t)( BTStatus_t xStatus,
                                                       BTClassicProperty_t * pxProperties );
 
 /**
+ * @ingroup bt_classic_adapter_manager_callbacks
  *
- * @brief Callback invoked in response to @ref pxGetRemoteClassicDeviceProperty
- * and @ref pxSetRemoteClassicDeviceProperty.
+ * @brief Callback invoked in response to @ref BTClassicInterface_t::pxGetRemoteClassicDeviceProperty
+ * and @ref BTClassicInterface_t::pxSetRemoteClassicDeviceProperty.
  *
  * @param[in] xStatus Returns eBTStatusSuccess if operation succeeded.
  * @param[in] pxBdAddr Address of the Remote device
@@ -256,6 +266,8 @@ typedef void ( * BTClassicRemoteDevicePropertiesCallback_t )( BTStatus_t xStatus
                                                               BTClassicProperty_t * pxProperties );
 
 /**
+ * @ingroup bt_classic_adapter_manager_callbacks
+ *
  * @brief Callback invoked in response to device discovery
  * If EIR data is not present, then BD_NAME and RSSI shall be NULL and -1
  * respectively.
@@ -267,14 +279,18 @@ typedef void (* BTDeviceFoundCallback_t)( uint32_t ulNumProperties,
                                           BTClassicProperty_t * pxProperties );
 
 /**
- * @brief Callback invoked in response to @ref pxStartDiscovery
- * and @ref pxStopDiscovery
+ * @ingroup bt_classic_adapter_manager_callbacks
+ *
+ * @brief Callback invoked in response to @ref BTClassicInterface_t::pxStartDiscovery
+ * and @ref BTClassicInterface_t::pxStopDiscovery
  *
  * @param[in] xState Discovery state
  */
 typedef void (* BTDiscoveryStateChangedCallback_t)( BTDiscoveryState_t xState );
 
 /**
+ * @ingroup bt_classic_adapter_manager_callbacks
+ *
  * @brief Callback invoked in response to ACL connection state change
  *
  * @param[in] xStatus Returns eBTStatusSuccess if operation succeeded.
@@ -285,18 +301,25 @@ typedef void (* BTaclStateChangedCallback_t)( BTStatus_t xStatus,
                                               BTBdaddr_t * pxRemoteBdAddr,
                                               BTaclState_t xState );
 
-/** Bluetooth DM callback structure. */
+/**
+ * @ingroup bt_hal_struct_types
+ * @brief Bluetooth DM callback structure.
+ * */
 typedef struct
 {
-    BTClassicDevicePropertiesCallback_t pxDevProperties_cb;
-    BTClassicRemoteDevicePropertiesCallback_t pxRemoteDevProperties_cb;
-    BTDeviceFoundCallback_t pxDeviceFound_cb;
-    BTDiscoveryStateChangedCallback_t pxDiscoveryStateChanged_cb;
-    BTaclStateChangedCallback_t pxAclStateChanged_cb;
+    BTClassicDevicePropertiesCallback_t pxDevProperties_cb;                 /**< Callback of pxDevProperties. */
+    BTClassicRemoteDevicePropertiesCallback_t pxRemoteDevProperties_cb;     /**< Callback of pxRemoteDevProperties. */
+    BTDeviceFoundCallback_t pxDeviceFound_cb;                               /**< Callback of pxDeviceFound. */
+    BTDiscoveryStateChangedCallback_t pxDiscoveryStateChanged_cb;           /**< Callback of pxDiscoveryStateChanged. */
+    BTaclStateChangedCallback_t pxAclStateChanged_cb;                       /**< Callback of pxAclStateChanged. */
 } BTClassicCallbacks_t;
 
 
-/** Represents the standard SAL BT Classic device management interface. */
+/**
+ * @ingroup bt_hal_struct_types
+ * @brief Represents the standard SAL BT Classic device management interface.
+ *
+ * */
 typedef struct
 {
     /**
@@ -396,7 +419,10 @@ typedef struct
     const void * ( *ppvGetProfileInterface )( BTProfile_t xProfile );
 } BTClassicInterface_t;
 
+
+/** Gets the BT classic Adapter interface.
+ * @return BTClassicInterface_t if the operation is successful, else NULL.
+ */
 const BTClassicInterface_t * BT_GetClassicAdapter();
 
 #endif /* _BT_HAL_MANAGER_ADAPTER_CLASSIC_ */
-/** @} */

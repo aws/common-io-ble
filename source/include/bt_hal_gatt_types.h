@@ -27,11 +27,9 @@
  * @file bt_hal_gatt_types.h
  *
  * @brief T HAL provides the standard defintions used by BT GATT interfaces.
- * @addtogroup HAL_BLUETOOTH
  * USAGE
  * -----
  *
- * @{
  */
 #ifndef _BT_HAL_GATT_TYPES_H_
 #define _BT_HAL_GATT_TYPES_H_
@@ -43,12 +41,14 @@
 #include "bt_hal_manager_types.h"
 
 /**
+ * @ingroup bt_hal_constants
  * Buffer sizes for maximum attribute length and maximum read/write
  * operation buffer size.
  */
 #define btGATT_MAX_ATTR_LEN    600
 
 /**
+ * @ingroup bt_hal_enum_types
  * @brief GATT Status Codes
  * @see BLUETOOTH SPECIFICATION Version 5.0 | Vol 3, Part F, 3.4.1.1 Error Response
  *
@@ -82,6 +82,7 @@ typedef enum
 } BTGattStatus_t;
 
 /**
+ * @ingroup bt_hal_enum_types
  * @brief GATT Characteristic property.
  *
  * @see BLUETOOTH SPECIFICATION Version 5.0 | Vol 3, Part G, 3.3.1.1 Characteristic Properties
@@ -98,9 +99,10 @@ enum
     eBTPropSignedWrite = 0x0040,
     eBTPropExtendedProps = 0x0080,
 };
-typedef uint16_t BTCharProperties_t;
+typedef uint16_t BTCharProperties_t;    /**< GATT Characteristic Property. */
 
 /**
+ * @ingroup bt_hal_enum_types
  * @brief GATT permissions.
  *
  * @see BLUETOOTH SPECIFICATION Version 5.0 | Vol 3, Part F, 3.2.5 Attribute Permissions
@@ -117,9 +119,10 @@ enum
     eBTPermWriteSigned = 0x0080,        /**< Writable, Signed required, No Authentication Required. */
     eBTPermWriteSignedMitm = 0x0100,    /**< Writable, Signed required, Authentication Required. */
 };
-typedef uint16_t BTCharPermissions_t;
+typedef uint16_t BTCharPermissions_t;   /**< GATT Permissions. */
 
 /**
+ * @ingroup bt_hal_enum_types
  * @brief Write request type.
  */
 typedef enum
@@ -132,6 +135,7 @@ typedef enum
 
 
 /**
+ * @ingroup bt_hal_enum_types
  * @brief GATT Service types
  */
 typedef enum
@@ -141,6 +145,7 @@ typedef enum
 } BTGattServiceTypes_t;
 
 /**
+ * @ingroup bt_hal_struct_types
  * @brief GATT service instance ID.
  */
 typedef struct
@@ -150,6 +155,7 @@ typedef struct
 } BTGattInstanceId_t;
 
 /**
+ * @ingroup bt_hal_struct_types
  * @brief GATT Service ID.
  */
 typedef struct
@@ -160,26 +166,28 @@ typedef struct
 
 
 /**
+ * @ingroup bt_hal_struct_types
  * @brief Structure that contains all advertisements info. Used to compress parameters in BTTrackAdvEventCallback_t.
  */
 typedef struct
 {
-    uint8_t ucClientIf;              /**< Client GATT interface. */
-    uint8_t ucFiltIndex;             /**< @TODO. */
-    uint8_t ucAdvertiserState;       /**< @TODO. */
-    uint8_t ucAdvertiserInfoPresent; /**< @TODO. */
-    uint8_t ucAddrType;              /**< @TODO. */
-    uint8_t ucTxPower;               /**< @TODO. */
-    int8_t cRssiValue;               /**< @TODO. */
-    uint16_t usTimeStamp;            /**< @TODO. */
-    BTBdaddr_t xBdAddr;              /**< @TODO. */
-    uint8_t ucAdvPktLen;             /**< @TODO. */
-    uint8_t * pucAdvPktData;         /**< @TODO. */
-    size_t xScanRspLen;              /**< @TODO. */
-    uint8_t * pucScanRspData;        /**< @TODO. */
+    uint8_t ucClientIf;              /**< Client GATT Interface. */
+    uint8_t ucFiltIndex;             /**< Filter Index. */
+    uint8_t ucAdvertiserState;       /**< Advertiser State. */
+    uint8_t ucAdvertiserInfoPresent; /**< Advertiser Info Present. */
+    uint8_t ucAddrType;              /**< Address Type. */
+    uint8_t ucTxPower;               /**< Transmit Power. */
+    int8_t cRssiValue;               /**< RSSI Value. */
+    uint16_t usTimeStamp;            /**< Time Stamp. */
+    BTBdaddr_t xBdAddr;              /**< BT/BLE Address. */
+    uint8_t ucAdvPktLen;             /**< Advertise Packet Length. */
+    uint8_t * pucAdvPktData;         /**< Advertise Packet Data. */
+    size_t xScanRspLen;              /**< Scan Response Length. */
+    uint8_t * pucScanRspData;        /**< Scan Response Data. */
 } BTGattTrackAdvInfo_t;
 
 /**
+ * @ingroup bt_hal_enum_types
  * @brief Attribute types.
  */
 typedef enum
@@ -195,6 +203,7 @@ typedef enum
 typedef struct BTService BTService_t;
 
 /**
+ * @ingroup bt_hal_struct_types
  * @brief Structure describing a characteristic.
  */
 typedef struct
@@ -205,6 +214,7 @@ typedef struct
 } BTCharacteristic_t;
 
 /**
+ * @ingroup bt_hal_struct_types
  * @brief Structure describing a characteristic descriptor.
  */
 typedef struct
@@ -214,6 +224,7 @@ typedef struct
 } BTCharacteristicDescr_t;
 
 /**
+ * @ingroup bt_hal_struct_types
  * @brief  Structure describing an included service.
  */
 typedef struct
@@ -223,11 +234,13 @@ typedef struct
 } BTIncludedService_t;
 
 /**
+ * @ingroup bt_hal_struct_types
  * @brief  Structure describing a service UUID.
  */
 typedef BTUuid_t BTServiceUUID_t;
 
 /**
+ * @ingroup bt_hal_struct_types
  * @brief Generic BLE attribute.
  */
 typedef struct
@@ -243,6 +256,7 @@ typedef struct
 } BTAttribute_t;
 
 /**
+ * @ingroup bt_hal_struct_types
  * @brief Structure describing a service.
  * Note, handles are allocated separately so the attribute array can be allocated in ROM.
  * pxHandlesBuffer has to dimensions: x and y [x][y] .
@@ -262,26 +276,30 @@ struct BTService
     BTAttribute_t * pxBLEAttributes; /**< Array of attribute, can be allocated in ROM. */
 };
 
+/**
+ * @ingroup bt_hal_struct_types
+ * @brief BLE GATT Db element.
+ */
 typedef struct
 {
-    uint16_t usId;
-    BTUuid_t xUuid;
-    BTDbAttributeType_t xType;
-    uint16_t usAttributeHandle;
+    uint16_t usId;                  /**< Service ID. */
+    BTUuid_t xUuid;                 /**< UUID. */
+    BTDbAttributeType_t xType;      /**< Attribute Type. */
+    uint16_t usAttributeHandle;     /**< Attribute Handle. */
 
     /*
      * If |type| is |btDB_PRIMARY_SERVICE|, or
      * |btDB_SECONDARY_SERVICE|, this contains the start and end attribute
      * handles.
      */
-    uint16_t usStartHandle;
-    uint16_t usEndHandle;
+    uint16_t usStartHandle;         /**< Start Attribute Handle. */
+    uint16_t usEndHandle;           /**< End Attribute Handle. */
 
     /*
      * If |type| is |btDB_CHARACTERISTIC|, this contains the properties of
      * the characteristic.
      */
-    uint8_t ucProperties;
+    uint8_t ucProperties;           /**< Properties of the Characteristic. */
 } BTGattDbElement_t;
 
 /** GATT open callback invoked in response to open */
@@ -312,4 +330,3 @@ typedef void ( * BTCongestionCallback_t)( uint16_t usConnId,
                                           bool bCongested );
 
 #endif /* _BT_HAL_GATT_TYPES_H_ */
-/** @} */

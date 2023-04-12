@@ -27,7 +27,6 @@
  * @file bt_hal_gatt_server.h
  *
  * @brief BT GATT Server provides the interfaces to use Bluetooth GATT server feature
- * @addtogroup HAL_BLUETOOTH
  *
  * Before calling any GATT server function, the Generic Access Profile needs to be initialized (see bt_hal_manager.h and bt_hal_manager_adapter*.h).
  * bt_hal_manager.h give the starting point.
@@ -38,7 +37,6 @@
  * 4. pxAddCharacteristic: Then all calls to pxAddDescriptor will add the descriptor to that characteristic
  * 5. pxStartService: Complete service create. Another service can be create afterward.
  *
- * @{
  */
 
 #ifndef _BT_HAL_GATT_SERVER_H_
@@ -48,6 +46,7 @@
 
 
 /**
+ * @ingroup bt_hal_enum_types
  * @brief Error status sent inside response to a read or write from the client.
  */
 typedef enum
@@ -60,6 +59,7 @@ typedef enum
 } BTRspErrorStatus_t;
 
 /**
+ * @ingroup bt_hal_struct_types
  * @brief GATT value type used in response to remote read/Write requests.
  */
 typedef struct
@@ -83,6 +83,8 @@ typedef union
 /** BT-GATT Server callback structure. */
 
 /**
+ * @ingroup bt_gatt_server_callbacks
+ *
  * @brief Callback invoked in response to pxRegisterServer.
  *
  * @param[in] xStatus returns eBTStatusSuccess if operation succeeded.
@@ -96,6 +98,8 @@ typedef void (* BTRegisterServerCallback_t)( BTStatus_t xStatus,
                                              BTUuid_t * pxAppUuid );
 
 /**
+ * @ingroup bt_gatt_server_callbacks
+ *
  * @brief Callback invoked in response to pxUnregisterServer.
  *
  * @param[in] xStatus returns eBTStatusSuccess if operation succeeded.
@@ -109,6 +113,8 @@ typedef void (* BTUnregisterServerCallback_t)( BTStatus_t xStatus,
                                                uint8_t ucServerIf );
 
 /**
+ * @ingroup bt_gatt_server_callbacks
+ *
  * @brief Callback invoked on a connection event
  *
  * @param[in] usConnId Connection Identifier. Uniquely identify a connection.
@@ -126,6 +132,8 @@ typedef void (* BTConnectionCallback_t)( uint16_t usConnId,
                                          BTBdaddr_t * pxBda );
 
 /**
+ * @ingroup bt_gatt_server_callbacks
+ *
  * @brief Callback invoked in response to pxAddService.
  *
  * @param[in] xStatus returns eBTStatusSuccess if operation succeeded.
@@ -144,6 +152,8 @@ typedef void (* BTServiceAddedCallback_t)( BTStatus_t xStatus,
                                            uint16_t usServiceHandle );
 
 /**
+ * @ingroup bt_gatt_server_callbacks
+ *
  * @brief Callback invoked in response to pxAddIncludedService.
  *
  * @param[in] xStatus returns eBTStatusSuccess if operation succeeded.
@@ -161,6 +171,8 @@ typedef void (* BTIncludedServiceAddedCallback_t)( BTStatus_t xStatus,
                                                    uint16_t usInclSrvcHandle );
 
 /**
+ * @ingroup bt_gatt_server_callbacks
+ *
  * @brief Callback invoked in response to pxAddCharacteristic.
  *
  * @param[in] xStatus returns eBTStatusSuccess if operation succeeded.
@@ -181,6 +193,8 @@ typedef void (* BTCharacteristicAddedCallback_t)( BTStatus_t xStatus,
                                                   uint16_t usCharHandle );
 
 /**
+ * @ingroup bt_gatt_server_callbacks
+ *
  * @brief Callback invoked in response to pxSetVal.
  *
  * @param[in] xStatus returns eBTStatusSuccess if operation succeeded.
@@ -191,6 +205,8 @@ typedef void (* BTSetValCallback_t)( BTStatus_t xStatus,
                                      uint16_t usAttrHandle );
 
 /**
+ * @ingroup bt_gatt_server_callbacks
+ *
  * @brief Callback invoked in response to pxAddDescriptor.
  *
  * @param[in] xStatus returns eBTStatusSuccess if operation succeeded.
@@ -211,6 +227,8 @@ typedef void (* BTDescriptorAddedCallback_t)( BTStatus_t xStatus,
                                               uint16_t usDescrHandle );
 
 /**
+ * @ingroup bt_gatt_server_callbacks
+ *
  * @brief Callback invoked in response to pxStartService.
  *
  * @param[in] xStatus returns eBTStatusSuccess if operation succeeded.
@@ -225,6 +243,8 @@ typedef void (* BTServiceStartedCallback_t)( BTStatus_t xStatus,
                                              uint16_t usServiceHandle );
 
 /**
+ * @ingroup bt_gatt_server_callbacks
+ *
  * @brief Callback invoked in response to pxStopService.
  *
  * @param[in] xStatus returns eBTStatusSuccess if operation succeeded.
@@ -239,6 +259,8 @@ typedef void (* BTServiceStoppedCallback_t)( BTStatus_t xStatus,
                                              uint16_t usServiceHandle );
 
 /**
+ * @ingroup bt_gatt_server_callbacks
+ *
  * @brief Callback invoked in response to pxDeleteService.
  *
  * @param[in] xStatus Returns eBTStatusSuccess if operation succeeded.
@@ -253,6 +275,8 @@ typedef void (* BTServiceDeletedCallback_t)( BTStatus_t xStatus,
                                              uint16_t usServiceHandle );
 
 /**
+ * @ingroup bt_gatt_server_callbacks
+ *
  * @brief Callback invoked on read event.
  *
  * Callback invoked when a remote device has requested to read a characteristic
@@ -276,6 +300,8 @@ typedef void (* BTRequestReadCallback_t)( uint16_t usConnId,
                                           uint16_t usOffset );
 
 /**
+ * @ingroup bt_gatt_server_callbacks
+
  * @brief Callback invoked on write event.
  *
  * Callback invoked when a remote device has requested to write to a
@@ -311,6 +337,8 @@ typedef void (* BTRequestWriteCallback_t)( uint16_t usConnId,
                                            uint8_t * pucValue );
 
 /**
+ * @ingroup bt_gatt_server_callbacks
+ *
  * @brief Callback invoked on execute write event.
  *
  * Callback invoked when a remote device that has done prepare write is now executing the command.
@@ -330,6 +358,8 @@ typedef void (* BTRequestExecWriteCallback_t)( uint16_t usConnId,
                                                bool bExecWrite );
 
 /**
+ * @ingroup bt_gatt_server_callbacks
+ *
  * @brief Callback triggered in response to sendResponse if the remote device
  * sends a confirmation.
  *
@@ -341,6 +371,8 @@ typedef void (* BTResponseConfirmationCallback_t)( BTStatus_t xStatus,
                                                    uint16_t usHandle );
 
 /**
+ * @ingroup bt_gatt_server_callbacks
+ *
  * @brief Callback  on confirmation device from the remote device to an indication.
  *  Or confirm a Notification as been sent.
  * @param[in] usConnId Connection Identifier, created and return on connection event,
@@ -352,6 +384,8 @@ typedef void (* BTIndicationSentCallback_t)( uint16_t usConnId,
                                              BTStatus_t xStatus );
 
 /**
+ * @ingroup bt_gatt_server_callbacks
+ *
  * @brief  Callback invoked when the MTU for a given connection changes.
  *
  * @param[in] usConnId Connection Identifier, created and return on connection event,
@@ -363,6 +397,8 @@ typedef void (* BTMtuChangedCallback_t)( uint16_t usConnId,
                                          uint16_t usMtu );
 
 /**
+ * @ingroup bt_gatt_server_callbacks
+ *
  * @brief  Callback for notifying modification in white list
  *
  * @param[in] pxBdAddr Address of the Remote device.
@@ -373,32 +409,37 @@ typedef void (* BTWhiteListChangedCallback_t)( const BTBdaddr_t * pxBdAddr,
                                                bool bIsAdded );
 
 /**
+ * @ingroup bt_hal_struct_types
  * @brief Callback structure for GATT server.
  */
 typedef struct
 {
-    BTRegisterServerCallback_t pxRegisterServerCb;
-    BTUnregisterServerCallback_t pxUnregisterServerCb;
-    BTConnectionCallback_t pxConnectionCb;
-    BTServiceAddedCallback_t pxServiceAddedCb;
-    BTIncludedServiceAddedCallback_t pxIncludedServiceAddedCb;
-    BTCharacteristicAddedCallback_t pxCharacteristicAddedCb;
-    BTSetValCallback_t pxSetValCallbackCb;
-    BTDescriptorAddedCallback_t pxDescriptorAddedCb;
-    BTServiceStartedCallback_t pxServiceStartedCb;
-    BTServiceStoppedCallback_t pxServiceStoppedCb;
-    BTServiceDeletedCallback_t pxServiceDeletedCb;
-    BTRequestReadCallback_t pxRequestReadCb;
-    BTRequestWriteCallback_t pxRequestWriteCb;
-    BTRequestExecWriteCallback_t pxRequestExecWriteCb;
-    BTResponseConfirmationCallback_t pxResponseConfirmationCb;
-    BTIndicationSentCallback_t pxIndicationSentCb;
-    BTCongestionCallback_t pxCongestionCb;
-    BTMtuChangedCallback_t pxMtuChangedCb;
-    BTWhiteListChangedCallback_t pxBTWhiteListChangedCb;
+    BTRegisterServerCallback_t pxRegisterServerCb;                  /**< Callback for pxRegisterServer. */
+    BTUnregisterServerCallback_t pxUnregisterServerCb;              /**< Callback for pxUnregisterServer. */
+    BTConnectionCallback_t pxConnectionCb;                          /**< Callback for pxConnection. */
+    BTServiceAddedCallback_t pxServiceAddedCb;                      /**< Callback for pxServiceAdded. */
+    BTIncludedServiceAddedCallback_t pxIncludedServiceAddedCb;      /**< Callback for pxIncludedServiceAdded. */
+    BTCharacteristicAddedCallback_t pxCharacteristicAddedCb;        /**< Callback for pxCharacteristicAdded. */
+    BTSetValCallback_t pxSetValCallbackCb;                          /**< Callback for pxSetValCallback. */
+    BTDescriptorAddedCallback_t pxDescriptorAddedCb;                /**< Callback for pxDescriptorAdded. */
+    BTServiceStartedCallback_t pxServiceStartedCb;                  /**< Callback for pxServiceStarted. */
+    BTServiceStoppedCallback_t pxServiceStoppedCb;                  /**< Callback for pxServiceStopped. */
+    BTServiceDeletedCallback_t pxServiceDeletedCb;                  /**< Callback for pxRequestRead. */
+    BTRequestReadCallback_t pxRequestReadCb;                        /**< Callback for pxRequestWrite. */
+    BTRequestWriteCallback_t pxRequestWriteCb;                      /**< Callback for pxRequestExecWrite. */
+    BTRequestExecWriteCallback_t pxRequestExecWriteCb;              /**< Callback for pxResponseConfirmation. */
+    BTResponseConfirmationCallback_t pxResponseConfirmationCb;      /**< Callback for pxIndicationSent. */
+    BTIndicationSentCallback_t pxIndicationSentCb;                  /**< Callback for pxIndicationSent. */
+    BTCongestionCallback_t pxCongestionCb;                          /**< Callback for pxCongestion. */
+    BTMtuChangedCallback_t pxMtuChangedCb;                          /**< Callback for pxMtuChanged. */
+    BTWhiteListChangedCallback_t pxBTWhiteListChangedCb;            /**< Callback for pxBTWhiteListChanged. */
 } BTGattServerCallbacks_t;
 
-/** Represents the standard BT-GATT server interface. */
+/**
+ * @ingroup bt_hal_struct_types
+ * @brief Represents the standard BT-GATT server interface.
+ *
+ * */
 typedef struct
 {
     /**
@@ -477,7 +518,7 @@ typedef struct
     /**
      * @brief Create a new service with all its components (descriptors/characteristic/included services, etc..).
      * The service is started automatically.
-     * @Warning: Not all platform supports changes to the attribute table while connected.
+     * @warning: Not all platform supports changes to the attribute table while connected.
      * It should be checked that calling this API while connected  is supported by the vendor's API.
      *
      * @param[in] ucServerIf Server interface, return on the callback BTRegisterServerCallback_t
@@ -494,7 +535,7 @@ typedef struct
      * @brief Create a new service.
      *
      * Triggers BTServiceAddedCallback_t.
-     * @Warning: Not all platform supports changes to the attribute table while connected.
+     * @warning: Not all platform supports changes to the attribute table while connected.
      * It should be checked that calling this API while connected  is supported by the vendor's API.e
      *
      * @param[in] ucServerIf Server interface, return on the callback BTRegisterServerCallback_t
@@ -514,7 +555,7 @@ typedef struct
      * @brief Assign an included service to it's parent service.
      *
      * Triggers BTIncludedServiceAddedCallback_t.
-     * @Warning: Not all platform supports changes to the attribute table while connected.
+     * @warning: Not all platform supports changes to the attribute table while connected.
      * It should be checked that calling this API while connected  is supported by the vendor's API.
      *
      * @param[in] ucServerIf Server interface, return on the callback BTRegisterServerCallback_t
@@ -536,7 +577,7 @@ typedef struct
      * Characteristics are created in order in which the function pxAddCharacteristic is called.
      * Descriptor created will belong to the characteristic that was created last.
      * Triggers BTCharacteristicAddedCallback_t.
-     * @Warning: Not all platform supports changes to the attribute table while connected.
+     * @warning: Not all platform supports changes to the attribute table while connected.
      * It should be checked that calling this API while connected  is supported by the vendor's API.
      *
      * @param[in] ucServerIf Server interface, return on the callback BTRegisterServerCallback_t
@@ -574,9 +615,9 @@ typedef struct
      * @brief Add a descriptor to a given service.
      *
      * The descriptor will belong to the first characteristic above it in the attribute table for that service.
-     * @WARNING: CCCD need to be created first so they are just below their respective characteristics.
+     * @warning: CCCD need to be created first so they are just below their respective characteristics.
      * Since some stacks will add them automatically right after the characteristic.
-     * @Warning: Not all platform supports changes to the attribute table while connected.
+     * @warning: Not all platform supports changes to the attribute table while connected.
      * It should be checked that calling this API while connected  is supported by the vendor's API.
      *
      * @param[in] ucServerIf Server interface, return on the callback BTRegisterServerCallback_t
@@ -618,7 +659,7 @@ typedef struct
      * @brief Stops a local service if supported by the underlying stack.
      *
      * Triggers BTServiceStoppedCallback_t.
-     * @NOTE: Not a mandatory API as not every stack supports it.
+     * @note: Not a mandatory API as not every stack supports it.
      *
      * @param[in] ucServerIf Server interface, return on the callback BTRegisterServerCallback_t
      *  after successful pxRegisterServer call.
@@ -634,7 +675,7 @@ typedef struct
      * @brief Delete a local service.
      *
      * Triggers BTServiceDeletedCallback_t.
-     * @Warning: Not all platform supports changes to the attribute table while connected.
+     * @warning: Not all platform supports changes to the attribute table while connected.
      * It should be checked that calling this API while connected  is supported by the vendor's API.
      *
      * @param[in] ucServerIf Server interface, return on the callback BTRegisterServerCallback_t
@@ -764,4 +805,3 @@ typedef struct
 } BTGattServerInterface_t;
 
 #endif /* _BT_HAL_GATT_SERVER_H_ */
-/** @} */

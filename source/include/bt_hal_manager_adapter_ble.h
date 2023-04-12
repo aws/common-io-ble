@@ -25,7 +25,6 @@
 
 /**
  * @file bt_hal_manager_adapter_ble.h
- * @addtogroup HAL_BLUETOOTH
  * @brief BT manager BLE adapter, provide GAP API functions that are specific to BLE.
  *
  * Before calling pxRegisterBleApp, common GAP need to be enabled and started.
@@ -34,7 +33,6 @@
  * 2. pxRegisterBleApp
  * 3. get the GATT interface to initialize GATT.
  *
- * @{
  */
 
 
@@ -47,33 +45,35 @@
 #include "bt_hal_manager.h"
 
 /* Ble Advertisement Power Levels Index. This index would translate into platform specific values power (bBm) values */
-#define BT_HAL_BLE_ADV_TX_PWR_ULTRA_LOW     0              /* Ultra Low Adv Tx Power   */
-#define BT_HAL_BLE_ADV_TX_PWR_LOW           1              /* Low Adv Tx Power           */
-#define BT_HAL_BLE_ADV_TX_PWR_MEDIUM        2              /* Medium Adv Tx Power     */
-#define BT_HAL_BLE_ADV_TX_PWR_HIGH          3              /* High Adv Tx Power          */
-#define BT_HAL_BLE_ADV_TX_PWR_ULTRA_HIGH    4              /* Ultra High Adv Tx Power  */
+#define BT_HAL_BLE_ADV_TX_PWR_ULTRA_LOW     0              /**< Ultra Low Adv Tx Power. */
+#define BT_HAL_BLE_ADV_TX_PWR_LOW           1              /**< Low Adv Tx Power. */
+#define BT_HAL_BLE_ADV_TX_PWR_MEDIUM        2              /**< Medium Adv Tx Power. */
+#define BT_HAL_BLE_ADV_TX_PWR_HIGH          3              /**< High Adv Tx Power. */
+#define BT_HAL_BLE_ADV_TX_PWR_ULTRA_HIGH    4              /**< Ultra High Adv Tx Power. */
 
 /**
+ * @ingroup bt_hal_struct_types
  * @brief Scan Filter Parameters
  */
 typedef struct
 {
-    uint8_t ucAdapterIf;
-    uint8_t ucAction;
-    uint8_t ucFiltIndex;
-    uint16_t usFeatSeln;
-    uint16_t usListLogicType;
-    uint8_t ucFiltLogicType;
-    uint8_t ucRssiHighThres;
-    uint8_t ucRssiLowThres;
-    uint8_t ucDelayMode;
-    uint16_t usFoundTimeout;
-    uint16_t usLostTimeout;
-    uint8_t ucFoundTimeout_cnt;
-    uint16_t usNumOfTrackingEntries;
+    uint8_t ucAdapterIf;                /**< BLE Adapter Interface. */
+    uint8_t ucAction;                   /**< Action Type. */
+    uint8_t ucFiltIndex;                /**< Filter Index. */
+    uint16_t usFeatSeln;                /**< FeatSe Length. */
+    uint16_t usListLogicType;           /**< List Logic Type. */
+    uint8_t ucFiltLogicType;            /**< Filter Logic Type. */
+    uint8_t ucRssiHighThres;            /**< High RSSI Threshold. */
+    uint8_t ucRssiLowThres;             /**< Low RSSI Threshold. */
+    uint8_t ucDelayMode;                /**< Delay Mode. */
+    uint16_t usFoundTimeout;            /**< Found Timeout. */
+    uint16_t usLostTimeout;             /**< Lost Timeout. */
+    uint8_t ucFoundTimeout_cnt;         /**< Count of Found Timeout. */
+    uint16_t usNumOfTrackingEntries;    /**< Number of Tracking Entries. */
 } BTGattFiltParamSetup_t;
 
 /**
+ * @ingroup bt_hal_enum_types
  * @brief Advertising Address Type
  */
 typedef enum
@@ -85,6 +85,7 @@ typedef enum
 } BTAddrType_t;
 
 /**
+ * @ingroup bt_hal_enum_types
  * @brief Advertising Type
  */
 typedef enum
@@ -95,6 +96,7 @@ typedef enum
 } BTAdvProperties_t;
 
 /**
+ * @ingroup bt_hal_struct_types
  * @brief Advertising Name Format
  */
 typedef struct
@@ -104,22 +106,23 @@ typedef struct
         BTGattAdvNameNone,
         BTGattAdvNameShort,
         BTGattAdvNameComplete
-    } xType;
-    uint8_t ucShortNameLen;
+    } xType;                    /**< Advertising Name Type. */
+    uint8_t ucShortNameLen;     /**< Name Length */
 } BTGattAdvName_t;
 
 /*TODO enum for usAdvertisingEventProperties */
 
 /**
+ * @ingroup bt_hal_struct_types
  * @brief Advertising Parameters
  */
 typedef struct
 {
-    BTAdvProperties_t usAdvertisingEventProperties;
-    bool bIncludeTxPower;
-    BTGattAdvName_t ucName;
-    bool bSetScanRsp;
-    uint32_t ulAppearance;
+    BTAdvProperties_t usAdvertisingEventProperties;     /**< Advertising Properties. */
+    bool bIncludeTxPower;              /**< Include Transmit Power or Not. */
+    BTGattAdvName_t ucName;            /**< Advertising Name Format. */
+    bool bSetScanRsp;                  /**< Set Scan Response or Not. */
+    uint32_t ulAppearance;             /**< GAP Appearance Value. */
     uint32_t ulMinInterval;            /**< Minimum Connection Interval. If set to 0, minimum connection interval is not included in advertisement/scan response data. */
     uint32_t ulMaxInterval;            /**< Maximum Connection Interval. If set to 0, maximum connection interval is not included in advertisement/scan response data. */
     uint16_t usMinAdvInterval;         /**< Minimum Advertising Interval in units of 0.625ms.
@@ -130,33 +133,35 @@ typedef struct
                                         *   Range: 0x0020 to 0x4000. Time Range: 20 ms to 10.24 s.
                                         *   If set to 0, stack specific default values will be used. */
     uint8_t ucChannelMap;              /**< The bit map to specify channel indices for advertising. If set to 0, stack specific values will be used. */
-    uint8_t ucTxPower;
-    uint8_t ucTimeout;                 /**< This is deprecated. Use usTimeout for advertisement duration value*/
+    uint8_t ucTxPower;                 /**< Transmit Power. */
+    uint8_t ucTimeout;                 /**< This is deprecated. Use usTimeout for advertisement duration value. */
     uint16_t usTimeout;                /**< Advertisement duration value in units of 10ms. Set to 0 for infinite timeout for advertisements. */
-    uint8_t ucPrimaryAdvertisingPhy;   /* 5.0 Specific interface */
-    uint8_t ucSecondaryAdvertisingPhy; /* 5.0 Specific interface */
-    BTAddrType_t xAddrType;
+    uint8_t ucPrimaryAdvertisingPhy;   /**< 5.0 Specific interface. */
+    uint8_t ucSecondaryAdvertisingPhy; /**< 5.0 Specific interface. */
+    BTAddrType_t xAddrType;            /**< Advertising Address Type. */
 } BTGattAdvertismentParams_t;
 
 /**
+ * @ingroup bt_hal_struct_types
  * @brief Local supported LE features
  */
 typedef struct
 {
-    uint16_t usVersionSupported;
-    uint8_t ucLocalPrivacyEnabled;
-    uint8_t ucMaxAdvInstance;
-    uint8_t ucRpaOffloadSupported;
-    uint8_t ucMaxIrkListSize;
-    uint8_t ucMaxAdFilterSupported;
-    uint8_t ucActivityEnergyInfoSupported;
-    uint16_t usScanResultStorageSize;
-    uint16_t usTotalTrackableAdvertisers;
-    bool bExtendedScanSupport;
-    bool bDebugLoggingSupported;
+    uint16_t usVersionSupported;                /**< BT Version Supported */
+    uint8_t ucLocalPrivacyEnabled;              /**< Local Privacy Enabled or Not */
+    uint8_t ucMaxAdvInstance;                   /**< Maximum Adv Instance */
+    uint8_t ucRpaOffloadSupported;              /**< RPA Offload Supported*/
+    uint8_t ucMaxIrkListSize;                   /**< Maximum Irk List Size*/
+    uint8_t ucMaxAdFilterSupported;             /**< Maximum Ad Filter Supported*/
+    uint8_t ucActivityEnergyInfoSupported;      /**< Activity Energy Info Supported */
+    uint16_t usScanResultStorageSize;           /**< Scan Result Storage Size */
+    uint16_t usTotalTrackableAdvertisers;       /**< Total Trackable Advertisers */
+    bool bExtendedScanSupport;                  /**< Extended Scan Support */
+    bool bDebugLoggingSupported;                /**< Debug Logging Supported*/
 } BTLocalLeFeatures_t;
 
 /**
+ * @ingroup bt_hal_enum_types
  * @brief BLE device property type
  */
 typedef enum
@@ -170,18 +175,20 @@ typedef enum
 } BTBlePropertyType_t;
 
 /**
+ * @ingroup bt_hal_struct_types
  * @brief BLE Device Property
  */
 typedef struct
 {
-    BTBlePropertyType_t xType;
-    size_t xLen;
-    void * pvVal;
+    BTBlePropertyType_t xType;      /**< BLE Property Type. */
+    size_t xLen;                    /**< Value Length. */
+    void * pvVal;                   /**< Property Value. */
 } BTBleProperty_t;
 
 /** BLE Adapter callback structure. */
 
 /**
+ * @ingroup ble_adapter_manager_callbacks
  *
  * @brief Callback invoked in response pxRegisterBleApp.
  *
@@ -194,6 +201,7 @@ typedef void (* BTRegisterBleAdapterCallback_t)( BTStatus_t xStatus,
                                                  BTUuid_t * pxAppUuid );
 
 /**
+ * @ingroup ble_adapter_manager_callbacks
  *
  * @brief  Callback invoked in response to pxGetBleAdapterProperty and pxSetBleAdapterProperty.
  *
@@ -206,6 +214,7 @@ typedef void (* BTBleDevicePropertiesCallback_t)( BTStatus_t xStatus,
                                                   BTBleProperty_t * pxProperties );
 
 /**
+ * @ingroup ble_adapter_manager_callbacks
  *
  * @brief Callback invoked in response to pxGetBleRemoteDeviceProperty and pxSetBleRemoteDeviceProperty.
  *
@@ -220,6 +229,7 @@ typedef void (* BTBleRemoteDevicePropertiesCallback_t)( BTStatus_t xStatus,
                                                         BTBleProperty_t * pxProperties );
 
 /**
+ * @ingroup ble_adapter_manager_callbacks
  *
  * @brief  Callback invoked in response to pxScan.
  *
@@ -234,18 +244,20 @@ typedef void (* BTScanResultCallback_t)( BTBdaddr_t * pxBda,
 /** GATT open callback invoked in response to open */
 
 /**
+ * @ingroup ble_adapter_manager_callbacks
  *
  * @brief  Callback invoked on pxStartAdv and stop advertisement.
  *
  * @param[in] xStatus Returns eBTStatusSuccess if operation succeeded.
  * @param[in] ucAdapterIf Adapter interface ID. Returned from BTRegisterBleAdapterCallback_t after calling pxRegisterBleApp.
- * @param[in] bStarted: True for start advertisement, flase for stop
+ * @param[in] bStart: True for start advertisement, flase for stop
  */
 typedef void (* BTAdvStatusCallback_t)( BTStatus_t xStatus,
                                         uint8_t ucAdapterIf,
                                         bool bStart );
 
 /**
+ * @ingroup ble_adapter_manager_callbacks
  *
  * @brief Callback invoked on pxSetAdvData.
  *
@@ -254,6 +266,7 @@ typedef void (* BTAdvStatusCallback_t)( BTStatus_t xStatus,
 typedef void (* BTSetAdvDataCallback_t) ( BTStatus_t xStatus );
 
 /**
+ * @ingroup ble_adapter_manager_callbacks
  *
  * @brief Callback invoked on when a peer device makes a request.
  * The callback is triggered by pxConnParameterUpdateRequest.
@@ -275,6 +288,7 @@ typedef void ( * BTConnParameterUpdateCallback_t )( BTStatus_t xStatus,
                                                     uint32_t ulTimeout );
 
 /**
+ * @ingroup ble_adapter_manager_callbacks
  *
  * @brief Callback invoked when a scan filter configuration command has completed.
  *
@@ -291,6 +305,7 @@ typedef void (* BTScanFilterCfgCallback_t)( uint32_t ulAction,
                                             uint32_t ulAvblSpace );
 
 /**
+ * @ingroup ble_adapter_manager_callbacks
  *
  * @brief Callback invoked on pxScanFilterParamSetup.
  *
@@ -305,6 +320,7 @@ typedef void (* BTScanFilterParamCallback_t)( uint32_t ulAction,
                                               uint32_t ulAvblSpace );
 
 /**
+ * @ingroup ble_adapter_manager_callbacks
  *
  * @brief  Callback invoked on pxScanFilterEnable.
  *
@@ -317,6 +333,7 @@ typedef void (* BTScanFilterStatusCallback_t)( bool bEnable,
                                                BTStatus_t xStatus );
 
 /**
+ * @ingroup ble_adapter_manager_callbacks
  *
  * @brief Callback invoked on pxMultiAdvEnable.
  *
@@ -327,6 +344,7 @@ typedef void (* BTMultiAdvEnableCallback_t)( uint8_t ucAdapterIf,
                                              BTStatus_t xStatus );
 
 /**
+ * @ingroup ble_adapter_manager_callbacks
  *
  * @brief Callback invoked on pxMultiAdvUpdate.
  *
@@ -337,6 +355,7 @@ typedef void (* BTMultiAdvUpdateCallback_t)( uint8_t ucAdapterIf,
                                              BTStatus_t xStatus );
 
 /**
+ * @ingroup ble_adapter_manager_callbacks
  *
  * @brief Callback invoked on pxMultiAdvSetInstData and pxMultiAdvSetInstRawData.
  *
@@ -348,6 +367,7 @@ typedef void (* BTMultiAdvDataCallback_t)( uint8_t ucAdapterIf,
 
 
 /**
+ * @ingroup ble_adapter_manager_callbacks
  *
  * @brief Callback invoked on pxMultiAdvDisable.
  *
@@ -358,6 +378,7 @@ typedef void (* BTMultiAdvDisableCallback_t)( uint8_t ucAdapterIf,
                                               BTStatus_t xStatus );
 
 /**
+ * @ingroup ble_adapter_manager_callbacks
  *
  * @brief Callback invoked on pxBatchscanCfgStorage.
  *
@@ -368,6 +389,7 @@ typedef void (* BTBatchscanCfgStorageCallback_t)( uint8_t ucAdapterIf,
                                                   BTStatus_t xStatus );
 
 /**
+ * @ingroup ble_adapter_manager_callbacks
  *
  * @brief Callback invoked on pxBatchscanDisBatchScan and TBD.
  *
@@ -380,6 +402,7 @@ typedef void (* BTBatchscanEnableDisableCallback_t)( uint32_t ulAction,
                                                      BTStatus_t xStatus );
 
 /**
+ * @ingroup ble_adapter_manager_callbacks
  *
  * @brief Callback invoked on pxBatchscanReadReports.
  *
@@ -398,6 +421,7 @@ typedef void (* BTBatchscanReportsCallback_t)( uint8_t ucAdapterIf,
                                                uint8_t * pucRepData );
 
 /**
+ * @ingroup ble_adapter_manager_callbacks
  *
  * @brief Callback invoked when batchscan storage threshold limit is crossed.
  *
@@ -406,6 +430,7 @@ typedef void (* BTBatchscanReportsCallback_t)( uint8_t ucAdapterIf,
 typedef void (* BTBatchscanThresholdCallback_t)( uint8_t ucAdapterIf );
 
 /**
+ * @ingroup ble_adapter_manager_callbacks
  *
  * @brief Track ADV VSE callback invoked when tracked device is found or lost.
  *
@@ -425,6 +450,7 @@ typedef void (* BTScanParameterSetupCompletedCallback_t)( uint8_t ucAdapterIf,
                                                           BTStatus_t xStatus );
 
 /**
+ * @ingroup ble_adapter_manager_callbacks
  *
  * @brief Callback invoked on pxSetPreferredPhy.
  *
@@ -439,6 +465,7 @@ typedef void (* BTPhyUpdatedCallback_t)( uint16_t usConnId,
                                          BTStatus_t xStatus );
 
 /**
+ * @ingroup ble_adapter_manager_callbacks
  *
  * @brief Callback invoked on pxReadPhy.
  *
@@ -453,41 +480,42 @@ typedef void (* BTReadClientPhyCallback_t)( uint16_t usConnId,
                                             BTStatus_t xStatus );
 
 /**
+ * @ingroup bt_hal_struct_types
  * @brief Callback structure for BLE adapter.
  */
 typedef struct
 {
-    BTRegisterBleAdapterCallback_t pxRegisterBleAdapterCb;
-    BTScanResultCallback_t pxScanResultCb;
-    BTBleDevicePropertiesCallback_t pxBleAdapterPropertiesCb;
-    BTBleRemoteDevicePropertiesCallback_t pxBleRemoteDevicePropertiesCb;
-    BTConnectCallback_t pxOpenCb;
-    BTDisconnectCallback_t pxCloseCb;
-    BTReadRemoteRssiCallback_t pxReadRemoteRssiCb;
-    BTAdvStatusCallback_t pxAdvStatusCb;
-    BTSetAdvDataCallback_t pxSetAdvDataCb;
-    BTConnParameterUpdateCallback_t pxConnParameterUpdateCb;
-    BTScanFilterCfgCallback_t pxScanFilterCfgCb;
-    BTScanFilterParamCallback_t pxScanFilterParamCb;
-    BTScanFilterStatusCallback_t pxScanFilterStatusCb;
-    BTMultiAdvEnableCallback_t pxMultiAdvEnableCb;
-    BTMultiAdvUpdateCallback_t pxMultiAdvUpdateCb;
-    BTMultiAdvDataCallback_t pxMultiAdvDataCb;
-    BTMultiAdvDisableCallback_t pxMultiAdvDisableCb;
-    BTCongestionCallback_t pxCongestionCb;
-    BTBatchscanCfgStorageCallback_t pxBatchscanCfgStorageCb;
-    BTBatchscanEnableDisableCallback_t pxBatchscanEnbDisableCb;
-    BTBatchscanReportsCallback_t pxBatchscanReportsCb;
-    BTBatchscanThresholdCallback_t pxBatchscanThresholdCb;
-    BTTrackAdvEventCallback_t pxTrackAdvEventCb;
-    BTScanParameterSetupCompletedCallback_t pxScanParameterSetupCompletedCb;
-    BTPhyUpdatedCallback_t pxPhyUpdatedCb;
+    BTRegisterBleAdapterCallback_t pxRegisterBleAdapterCb;                      /**< Callback of pxRegisterBleAdapter. */
+    BTScanResultCallback_t pxScanResultCb;                                      /**< Callback of pxScanResult. */
+    BTBleDevicePropertiesCallback_t pxBleAdapterPropertiesCb;                   /**< Callback of pxBleAdapterProperties. */
+    BTBleRemoteDevicePropertiesCallback_t pxBleRemoteDevicePropertiesCb;        /**< Callback of pxBleRemoteDeviceProperties. */
+    BTConnectCallback_t pxOpenCb;                                               /**< Callback of pxOpen. */
+    BTDisconnectCallback_t pxCloseCb;                                           /**< Callback of pxClose. */
+    BTReadRemoteRssiCallback_t pxReadRemoteRssiCb;                              /**< Callback of pxReadRemoteRssi. */
+    BTAdvStatusCallback_t pxAdvStatusCb;                                        /**< Callback of pxAdvStatus. */
+    BTSetAdvDataCallback_t pxSetAdvDataCb;                                      /**< Callback of pxSetAdvData. */
+    BTConnParameterUpdateCallback_t pxConnParameterUpdateCb;                    /**< Callback of pxConnParameterUpdate. */
+    BTScanFilterCfgCallback_t pxScanFilterCfgCb;                                /**< Callback of pxScanFilterCfg. */
+    BTScanFilterParamCallback_t pxScanFilterParamCb;                            /**< Callback of pxScanFilterParam. */
+    BTScanFilterStatusCallback_t pxScanFilterStatusCb;                          /**< Callback of pxScanFilterStatus. */
+    BTMultiAdvEnableCallback_t pxMultiAdvEnableCb;                              /**< Callback of pxMultiAdvEnable. */
+    BTMultiAdvUpdateCallback_t pxMultiAdvUpdateCb;                              /**< Callback of pxMultiAdvUpdate. */
+    BTMultiAdvDataCallback_t pxMultiAdvDataCb;                                  /**< Callback of pxMultiAdvData. */
+    BTMultiAdvDisableCallback_t pxMultiAdvDisableCb;                            /**< Callback of pxMultiAdvDisable. */
+    BTCongestionCallback_t pxCongestionCb;                                      /**< Callback of pxCongestion. */
+    BTBatchscanCfgStorageCallback_t pxBatchscanCfgStorageCb;                    /**< Callback of pxBatchscanCfgStorage. */
+    BTBatchscanEnableDisableCallback_t pxBatchscanEnbDisableCb;                 /**< Callback of pxBatchscanEnbDisable. */
+    BTBatchscanReportsCallback_t pxBatchscanReportsCb;                          /**< Callback of pxBatchscanReports. */
+    BTBatchscanThresholdCallback_t pxBatchscanThresholdCb;                      /**< Callback of pxBatchscanThreshold. */
+    BTTrackAdvEventCallback_t pxTrackAdvEventCb;                                /**< Callback of pxTrackAdvEvent. */
+    BTScanParameterSetupCompletedCallback_t pxScanParameterSetupCompletedCb;    /**< Callback of pxScanParameterSetupCompleted. */
+    BTPhyUpdatedCallback_t pxPhyUpdatedCb;                                      /**< Callback of pxPhyUpdated. */
 } BTBleAdapterCallbacks_t;
 
-/** Represents the standard BT-GATT client interface. */
 
 /**
- * @brief BLE adapter API.
+ * @ingroup bt_hal_struct_types
+ * @brief Represents the standard BLE device management interface.
  */
 typedef struct
 {
@@ -759,7 +787,7 @@ typedef struct
 
     /**
      *
-     * @briefRequest a connection parameter update.
+     * @brief Request a connection parameter update.
      * If the request is accepted, it will trigger BTConnParameterUpdateRequestCallback_t.
      *
      *
@@ -907,12 +935,12 @@ typedef struct
 
     /**
      *
-     * @brief .
+     * @brief Set Preferred Phy.
      *
      * @param[in] usConnId Connection ID return from BTConnectCallback_t.
-     * @param[in] ucTxPhy
-     * @param[in] ucRxPhy
-     * @param[in] usPhyOptions
+     * @param[in] ucTxPhy.
+     * @param[in] ucRxPhy.
+     * @param[in] usPhyOptions.
      * @return Returns eBTStatusSuccess on successful call.
      */
     BTStatus_t ( * pxSetPreferredPhy )( uint16_t usConnId,
@@ -922,10 +950,10 @@ typedef struct
 
     /**
      *
-     * @brief .
+     * @brief Read Phy.
      *
      * @param[in] usConnId Connection ID return from BTConnectCallback_t.
-     * @param[in] xCb
+     * @param[in] xCb.
      * @return Returns eBTStatusSuccess on successful call.
      */
     BTStatus_t ( * pxReadPhy )( uint16_t usConnId,
@@ -975,4 +1003,3 @@ typedef struct
 } BTBleAdapter_t;
 
 #endif /* #ifndef _BT_HAL_MANAGER_ADAPTER_BLE_H_ */
-/** @} */
