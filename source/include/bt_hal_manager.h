@@ -2,6 +2,8 @@
  * FreeRTOS BLE HAL V5.1.0
  * Copyright (C) 2020-2021 Amazon.com, Inc. or its affiliates.  All Rights Reserved.
  *
+ * SPDX-License-Identifier: MIT
+ *
  * Permission is hereby granted, free of charge, to any person obtaining a copy of
  * this software and associated documentation files (the "Software"), to deal in
  * the Software without restriction, including without limitation the rights to
@@ -95,7 +97,7 @@ enum
     eBTSecLevelAuthenticatedPairing = 0x03,   /**< Mode 1 level 3, Authenticated pairing with encryption. */
     eBTSecLevelSecureConnect = 0x04,          /**< Mode 1 level 4, Authenticated LE Secure Connections pairing with encryption using a 128-bit strength encryption key. */
 };
-typedef uint8_t BTSecurityLevel_t;      /**< BT Security Level. */
+typedef uint8_t BTSecurityLevel_t;            /**< BT Security Level. */
 
 /**
  * @ingroup bt_hal_enum_types
@@ -108,7 +110,7 @@ enum
     eBTAuthReqSecureConnect = 0x04, /**< Authenticated encryption. */
     eBTAuthReqKeyPress = 0x05,
 };
-typedef uint8_t BTAuthReq_t;    /**< BT Authentication Requirement. */
+typedef uint8_t BTAuthReq_t; /**< BT Authentication Requirement. */
 
 /**
  * @ingroup bt_hal_enum_types
@@ -327,9 +329,9 @@ typedef enum
  * */
 typedef enum
 {
-    eBTbondStateNone,           /**< None Bond State. */
-    eBTbondStateBonding,        /**< Bonding State. */
-    eBTbondStateBonded,         /**< Bonded State. */
+    eBTbondStateNone,    /**< None Bond State. */
+    eBTbondStateBonding, /**< Bonding State. */
+    eBTbondStateBonded,  /**< Bonded State. */
 } BTBondState_t;
 
 /**
@@ -364,9 +366,9 @@ typedef struct
  */
 typedef struct
 {
-    int32_t lAppUid;        /**< APP UID. */
-    uint64_t ullTxBytes;    /**< TX Bytes. */
-    uint64_t ullRxBytes;    /**< RX Bytes. */
+    int32_t lAppUid;     /**< APP UID. */
+    uint64_t ullTxBytes; /**< TX Bytes. */
+    uint64_t ullRxBytes; /**< RX Bytes. */
 } BTUidTraffic_t;
 
 /**

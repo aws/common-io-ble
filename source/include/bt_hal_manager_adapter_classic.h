@@ -2,6 +2,8 @@
  * FreeRTOS BLE HAL V5.1.0
  * Copyright (C) 2020 Amazon.com, Inc. or its affiliates.  All Rights Reserved.
  *
+ * SPDX-License-Identifier: MIT
+ *
  * Permission is hereby granted, free of charge, to any person obtaining a copy of
  * this software and associated documentation files (the "Software"), to deal in
  * the Software without restriction, including without limitation the rights to
@@ -87,9 +89,9 @@ typedef enum
  */
 typedef struct
 {
-    BTUuid_t xUuid;          /**< UUID */
-    uint16_t usChannel;      /**< Channel */
-    char * cName;            /**< Service Name */
+    BTUuid_t xUuid;     /**< UUID */
+    uint16_t usChannel; /**< Channel */
+    char * cName;       /**< Service Name */
 } BTServiceRecord_t;
 
 /**
@@ -98,8 +100,8 @@ typedef struct
  */
 typedef struct
 {
-    uint32_t ulVvendor;     /**< Vendor ID. */
-    uint32_t ulProduct;     /**< Product ID. */
+    uint32_t ulVvendor; /**< Vendor ID. */
+    uint32_t ulProduct; /**< Product ID. */
 } BTEirManfInfo_t;
 
 /**
@@ -108,9 +110,9 @@ typedef struct
  */
 typedef struct
 {
-    uint32_t ulVendor;      /**< Vendor ID. */
-    uint32_t ulProduct;     /**< Product ID. */
-    uint32_t ulUuid;        /**< Service Class UUID. */
+    uint32_t ulVendor;  /**< Vendor ID. */
+    uint32_t ulProduct; /**< Product ID. */
+    uint32_t ulUuid;    /**< Service Class UUID. */
 } BTGadgetEirManfInfo_t;
 
 /**
@@ -230,9 +232,9 @@ typedef enum
  */
 typedef struct
 {
-    BTClassicPropertyType_t xType;      /**< BT Classic Property Type. */
-    size_t xLen;                        /**< Value Length. */
-    void * pvVal;                       /**< Property Value. */
+    BTClassicPropertyType_t xType; /**< BT Classic Property Type. */
+    size_t xLen;                   /**< Value Length. */
+    void * pvVal;                  /**< Property Value. */
 } BTClassicProperty_t;
 
 /**
@@ -307,11 +309,11 @@ typedef void (* BTaclStateChangedCallback_t)( BTStatus_t xStatus,
  * */
 typedef struct
 {
-    BTClassicDevicePropertiesCallback_t pxDevProperties_cb;                 /**< Callback of pxDevProperties. */
-    BTClassicRemoteDevicePropertiesCallback_t pxRemoteDevProperties_cb;     /**< Callback of pxRemoteDevProperties. */
-    BTDeviceFoundCallback_t pxDeviceFound_cb;                               /**< Callback of pxDeviceFound. */
-    BTDiscoveryStateChangedCallback_t pxDiscoveryStateChanged_cb;           /**< Callback of pxDiscoveryStateChanged. */
-    BTaclStateChangedCallback_t pxAclStateChanged_cb;                       /**< Callback of pxAclStateChanged. */
+    BTClassicDevicePropertiesCallback_t pxDevProperties_cb;             /**< Callback of pxDevProperties. */
+    BTClassicRemoteDevicePropertiesCallback_t pxRemoteDevProperties_cb; /**< Callback of pxRemoteDevProperties. */
+    BTDeviceFoundCallback_t pxDeviceFound_cb;                           /**< Callback of pxDeviceFound. */
+    BTDiscoveryStateChangedCallback_t pxDiscoveryStateChanged_cb;       /**< Callback of pxDiscoveryStateChanged. */
+    BTaclStateChangedCallback_t pxAclStateChanged_cb;                   /**< Callback of pxAclStateChanged. */
 } BTClassicCallbacks_t;
 
 

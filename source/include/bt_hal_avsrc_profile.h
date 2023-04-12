@@ -2,6 +2,8 @@
  * FreeRTOS BLE HAL V5.1.0
  * Copyright (C) 2020-2021 Amazon.com, Inc. or its affiliates.  All Rights Reserved.
  *
+ * SPDX-License-Identifier: MIT
+ *
  * Permission is hereby granted, free of charge, to any person obtaining a copy of
  * this software and associated documentation files (the "Software"), to deal in
  * the Software without restriction, including without limitation the rights to
@@ -171,4 +173,3 @@ typedef struct
 const BTAvsrcInterface_t * BT_GetAvsrcInterface();
 
 #endif /* _BT_HAL_AVSRC_PROFILE_H */
-

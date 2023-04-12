@@ -1,0 +1,5 @@
+name : "common-io-ble"
+version: "v1.0.0"
+description: |
+  "Hardware abstraction layer for Bluetooth.\n"
+license: "MIT"

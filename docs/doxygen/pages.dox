@@ -10,7 +10,7 @@ BT HAL provides the interfaces to control the Bluetooth device. The following op
 */
 
 /**
-@page bt_hal_manager_interface Bluethooth Device Management Interface
+@page bt_hal_manager_interface Bluetooth Device Management Interface
 @brief Bluetooth HAL provides the interfaces to control the Bluetooth device, local device control and device discovery functionalities.
  *
  * The common generic access profile is the starting point of Bluetooth API.
@@ -90,8 +90,8 @@ The A2DP connection callbacks can be found here @ref bt_A2DP_connection_callback
 */
 
 /**
-@defgroup bt_device_management_callbacks Bluethooth Device Management Callbacks
-@brief Callbacks for Bluethooth Device Management Interface
+@defgroup bt_device_management_callbacks Bluetooth Device Management Callbacks
+@brief Callbacks for Bluetooth Device Management Interface
 */
 
 /**
