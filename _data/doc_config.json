@@ -1,6 +1,8 @@
 {
   "name": "ble",
-  "releases": [],
+  "releases": [
+    "v1.0.0"
+  ],
   "branches": [
     "main"
   ]
