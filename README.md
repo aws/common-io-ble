@@ -14,9 +14,13 @@ Common IO - BLE provides an abstraction layer which offer a common set of APIs t
 
 **bt_hal_avsrc_profile.h** : Contains the interface for A2DP Source profile for the local device.
 
+## Contributing
+
+See [CONTRIBUTING.md](./.github/CONTRIBUTING.md) for information on contributing.
+
 ## Security
 
-See [CONTRIBUTING](CONTRIBUTING.md#security-issue-notifications) for more information.
+See [SECURITY](SECURITY.md) for more information.
 
 ## License
 
