@@ -2,6 +2,8 @@
  * FreeRTOS BLE HAL V5.1.0
  * Copyright (C) 2020 Amazon.com, Inc. or its affiliates.  All Rights Reserved.
  *
+ * SPDX-License-Identifier: MIT
+ *
  * Permission is hereby granted, free of charge, to any person obtaining a copy of
  * this software and associated documentation files (the "Software"), to deal in
  * the Software without restriction, including without limitation the rights to
@@ -301,7 +303,7 @@ typedef void (* BTRequestReadCallback_t)( uint16_t usConnId,
 
 /**
  * @ingroup bt_gatt_server_callbacks
-
+ *
  * @brief Callback invoked on write event.
  *
  * Callback invoked when a remote device has requested to write to a
@@ -414,25 +416,25 @@ typedef void (* BTWhiteListChangedCallback_t)( const BTBdaddr_t * pxBdAddr,
  */
 typedef struct
 {
-    BTRegisterServerCallback_t pxRegisterServerCb;                  /**< Callback for pxRegisterServer. */
-    BTUnregisterServerCallback_t pxUnregisterServerCb;              /**< Callback for pxUnregisterServer. */
-    BTConnectionCallback_t pxConnectionCb;                          /**< Callback for pxConnection. */
-    BTServiceAddedCallback_t pxServiceAddedCb;                      /**< Callback for pxServiceAdded. */
-    BTIncludedServiceAddedCallback_t pxIncludedServiceAddedCb;      /**< Callback for pxIncludedServiceAdded. */
-    BTCharacteristicAddedCallback_t pxCharacteristicAddedCb;        /**< Callback for pxCharacteristicAdded. */
-    BTSetValCallback_t pxSetValCallbackCb;                          /**< Callback for pxSetValCallback. */
-    BTDescriptorAddedCallback_t pxDescriptorAddedCb;                /**< Callback for pxDescriptorAdded. */
-    BTServiceStartedCallback_t pxServiceStartedCb;                  /**< Callback for pxServiceStarted. */
-    BTServiceStoppedCallback_t pxServiceStoppedCb;                  /**< Callback for pxServiceStopped. */
-    BTServiceDeletedCallback_t pxServiceDeletedCb;                  /**< Callback for pxRequestRead. */
-    BTRequestReadCallback_t pxRequestReadCb;                        /**< Callback for pxRequestWrite. */
-    BTRequestWriteCallback_t pxRequestWriteCb;                      /**< Callback for pxRequestExecWrite. */
-    BTRequestExecWriteCallback_t pxRequestExecWriteCb;              /**< Callback for pxResponseConfirmation. */
-    BTResponseConfirmationCallback_t pxResponseConfirmationCb;      /**< Callback for pxIndicationSent. */
-    BTIndicationSentCallback_t pxIndicationSentCb;                  /**< Callback for pxIndicationSent. */
-    BTCongestionCallback_t pxCongestionCb;                          /**< Callback for pxCongestion. */
-    BTMtuChangedCallback_t pxMtuChangedCb;                          /**< Callback for pxMtuChanged. */
-    BTWhiteListChangedCallback_t pxBTWhiteListChangedCb;            /**< Callback for pxBTWhiteListChanged. */
+    BTRegisterServerCallback_t pxRegisterServerCb;             /**< Callback for pxRegisterServer. */
+    BTUnregisterServerCallback_t pxUnregisterServerCb;         /**< Callback for pxUnregisterServer. */
+    BTConnectionCallback_t pxConnectionCb;                     /**< Callback for pxConnection. */
+    BTServiceAddedCallback_t pxServiceAddedCb;                 /**< Callback for pxServiceAdded. */
+    BTIncludedServiceAddedCallback_t pxIncludedServiceAddedCb; /**< Callback for pxIncludedServiceAdded. */
+    BTCharacteristicAddedCallback_t pxCharacteristicAddedCb;   /**< Callback for pxCharacteristicAdded. */
+    BTSetValCallback_t pxSetValCallbackCb;                     /**< Callback for pxSetValCallback. */
+    BTDescriptorAddedCallback_t pxDescriptorAddedCb;           /**< Callback for pxDescriptorAdded. */
+    BTServiceStartedCallback_t pxServiceStartedCb;             /**< Callback for pxServiceStarted. */
+    BTServiceStoppedCallback_t pxServiceStoppedCb;             /**< Callback for pxServiceStopped. */
+    BTServiceDeletedCallback_t pxServiceDeletedCb;             /**< Callback for pxRequestRead. */
+    BTRequestReadCallback_t pxRequestReadCb;                   /**< Callback for pxRequestWrite. */
+    BTRequestWriteCallback_t pxRequestWriteCb;                 /**< Callback for pxRequestExecWrite. */
+    BTRequestExecWriteCallback_t pxRequestExecWriteCb;         /**< Callback for pxResponseConfirmation. */
+    BTResponseConfirmationCallback_t pxResponseConfirmationCb; /**< Callback for pxIndicationSent. */
+    BTIndicationSentCallback_t pxIndicationSentCb;             /**< Callback for pxIndicationSent. */
+    BTCongestionCallback_t pxCongestionCb;                     /**< Callback for pxCongestion. */
+    BTMtuChangedCallback_t pxMtuChangedCb;                     /**< Callback for pxMtuChanged. */
+    BTWhiteListChangedCallback_t pxBTWhiteListChangedCb;       /**< Callback for pxBTWhiteListChanged. */
 } BTGattServerCallbacks_t;
 
 /**

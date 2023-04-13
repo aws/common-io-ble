@@ -2,6 +2,8 @@
  * FreeRTOS BLE HAL V5.1.0
  * Copyright (C) 2020 Amazon.com, Inc. or its affiliates.  All Rights Reserved.
  *
+ * SPDX-License-Identifier: MIT
+ *
  * Permission is hereby granted, free of charge, to any person obtaining a copy of
  * this software and associated documentation files (the "Software"), to deal in
  * the Software without restriction, including without limitation the rights to
@@ -49,8 +51,8 @@
  */
 typedef struct
 {
-    uint8_t ucValue[ btGATT_MAX_ATTR_LEN ];    /**< Read/Write Value. */
-    uint16_t usLen;                            /**< Read/Write Value Length. */
+    uint8_t ucValue[ btGATT_MAX_ATTR_LEN ]; /**< Read/Write Value. */
+    uint16_t usLen;                         /**< Read/Write Value Length. */
 } BTGattUnformattedValue_t;
 
 /**
@@ -59,10 +61,10 @@ typedef struct
  */
 typedef struct
 {
-    uint16_t usHandle;                  /**< GATT Attribute Handle. */
-    BTGattUnformattedValue_t xValue;    /**< Read Value. */
-    uint16_t usValueType;               /**< Read Value Type. */
-    uint8_t ucStatus;                   /**< Read Operation Status. */
+    uint16_t usHandle;               /**< GATT Attribute Handle. */
+    BTGattUnformattedValue_t xValue; /**< Read Value. */
+    uint16_t usValueType;            /**< Read Value Type. */
+    uint8_t ucStatus;                /**< Read Operation Status. */
 } BTGattReadParams_t;
 
 /**
@@ -71,10 +73,10 @@ typedef struct
  */
 typedef struct
 {
-    BTGattSrvcId_t xSrvcId;             /**< GATT Service ID. */
-    BTGattInstanceId_t xCharId;         /**< GATT Characteristic UUID. */
-    BTGattInstanceId_t xDescrId;        /**< GATT Descriptor UUID. */
-    uint8_t ucStatus;                   /**< Write Operation Status. */
+    BTGattSrvcId_t xSrvcId;      /**< GATT Service ID. */
+    BTGattInstanceId_t xCharId;  /**< GATT Characteristic UUID. */
+    BTGattInstanceId_t xDescrId; /**< GATT Descriptor UUID. */
+    uint8_t ucStatus;            /**< Write Operation Status. */
 } BTGattWriteParams_t;
 
 /**
@@ -83,11 +85,11 @@ typedef struct
  */
 typedef struct
 {
-    uint8_t ucValue[ btGATT_MAX_ATTR_LEN ];     /**< Attribute Value. */
-    BTBdaddr_t xBda;                            /**< BT/BLE Address. */
-    uint16_t usHandle;                          /**< GATT Attribute Handle. */
-    size_t xLen;                                /**< Value Length. */
-    bool bIsNotify;                             /**< To Notify or Not. */
+    uint8_t ucValue[ btGATT_MAX_ATTR_LEN ]; /**< Attribute Value. */
+    BTBdaddr_t xBda;                        /**< BT/BLE Address. */
+    uint16_t usHandle;                      /**< GATT Attribute Handle. */
+    size_t xLen;                            /**< Value Length. */
+    bool bIsNotify;                         /**< To Notify or Not. */
 } BTGattNotifyParams_t;
 
 /**
@@ -96,13 +98,13 @@ typedef struct
  */
 typedef struct
 {
-    BTBdaddr_t * pxBda1;    /**< BT/BLE address. */
-    BTUuid_t * pxUuid1;     /**< BT/BLE UUID. */
-    uint16_t usU1;          /**< Parameter 1. */
-    uint16_t usU2;          /**< Parameter 2. */
-    uint16_t usU3;          /**< Parameter 3. */
-    uint16_t usU4;          /**< Parameter 4. */
-    uint16_t usU5;          /**< Parameter 5. */
+    BTBdaddr_t * pxBda1; /**< BT/BLE address. */
+    BTUuid_t * pxUuid1;  /**< BT/BLE UUID. */
+    uint16_t usU1;       /**< Parameter 1. */
+    uint16_t usU2;       /**< Parameter 2. */
+    uint16_t usU3;       /**< Parameter 3. */
+    uint16_t usU4;       /**< Parameter 4. */
+    uint16_t usU5;       /**< Parameter 5. */
 } BTGattTestParams_t;
 
 
@@ -348,30 +350,31 @@ typedef void ( * BTServicesRemovedCallback_t)( uint16_t usConnId,
 typedef void ( * BTServicesAddedCallback_t)( uint16_t usConnId,
                                              BTGattDbElement_t * pxAdded,
                                              uint32_t ulAddedCount );
+
 /**
  * @ingroup bt_hal_struct_types
  * @brief Represents the BT-GATT client callbacks.
  * */
 typedef struct
 {
-    BTRegisterClientCallback_t pxRegisterClientCb;                      /**< Callback of pxRegisterClient. */
-    BTConnectCallback_t pxOpenCb;                                       /**< Callback of pxOpen. */
-    BTDisconnectCallback_t pxCloseCb;                                   /**< Callback of pxClose. */
-    BTSearchCompleteCallback_t pxSearchCompleteCb;                      /**< Callback of pxSearchComplete. */
-    BTRegisterForNotificationCallback_t pxRegisterForNotificationCb;    /**< Callback of pxRegisterForNotification. */
-    BTNotifyCallback_t pxNotifyCb;                                      /**< Callback of pxNotify. */
-    BTReadCharacteristicCallback_t pxReadCharacteristicCb;              /**< Callback of pxReadCharacteristic. */
-    BTWriteCharacteristicCallback_t pxWriteCharacteristicCb;            /**< Callback of pxWriteCharacteristic. */
-    BTReadDescriptorCallback_t pxReadDescriptorCb;                      /**< Callback of pxReadDescriptor. */
-    BTWriteDescriptorCallback_t pxWriteDescriptorCb;                    /**< Callback of pxWriteDescriptor. */
-    BTExecuteWriteCallback_t pxExecuteWriteCb;                          /**< Callback of pxExecuteWrite. */
-    BTReadRemoteRssiCallback_t pxReadRemoteRssiCb;                      /**< Callback of pxReadRemoteRssi. */
-    BTListenCallback_t pxListenCb;                                      /**< Deprecated */
-    BTConfigureMtuCallback_t pxConfigureMtuCb;                          /**< Callback of pxConfigureMtu. */
-    BTCongestionCallback_t pxCongestionCb;                              /**< Callback of pxCongestion. */
-    BTGetGattDbCallback_t pxGetGattDbCb;                                /**< Callback of pxGetGattDb. */
-    BTServicesRemovedCallback_t pxServicesRemovedCb;                    /**< Callback of pxServicesRemoved. */
-    BTServicesAddedCallback_t pxServicesAddedCb;                        /**< Callback of pxServicesAdded. */
+    BTRegisterClientCallback_t pxRegisterClientCb;                   /**< Callback of pxRegisterClient. */
+    BTConnectCallback_t pxOpenCb;                                    /**< Callback of pxOpen. */
+    BTDisconnectCallback_t pxCloseCb;                                /**< Callback of pxClose. */
+    BTSearchCompleteCallback_t pxSearchCompleteCb;                   /**< Callback of pxSearchComplete. */
+    BTRegisterForNotificationCallback_t pxRegisterForNotificationCb; /**< Callback of pxRegisterForNotification. */
+    BTNotifyCallback_t pxNotifyCb;                                   /**< Callback of pxNotify. */
+    BTReadCharacteristicCallback_t pxReadCharacteristicCb;           /**< Callback of pxReadCharacteristic. */
+    BTWriteCharacteristicCallback_t pxWriteCharacteristicCb;         /**< Callback of pxWriteCharacteristic. */
+    BTReadDescriptorCallback_t pxReadDescriptorCb;                   /**< Callback of pxReadDescriptor. */
+    BTWriteDescriptorCallback_t pxWriteDescriptorCb;                 /**< Callback of pxWriteDescriptor. */
+    BTExecuteWriteCallback_t pxExecuteWriteCb;                       /**< Callback of pxExecuteWrite. */
+    BTReadRemoteRssiCallback_t pxReadRemoteRssiCb;                   /**< Callback of pxReadRemoteRssi. */
+    BTListenCallback_t pxListenCb;                                   /**< Deprecated */
+    BTConfigureMtuCallback_t pxConfigureMtuCb;                       /**< Callback of pxConfigureMtu. */
+    BTCongestionCallback_t pxCongestionCb;                           /**< Callback of pxCongestion. */
+    BTGetGattDbCallback_t pxGetGattDbCb;                             /**< Callback of pxGetGattDb. */
+    BTServicesRemovedCallback_t pxServicesRemovedCb;                 /**< Callback of pxServicesRemoved. */
+    BTServicesAddedCallback_t pxServicesAddedCb;                     /**< Callback of pxServicesAdded. */
 } BTGattClientCallbacks_t;
 
 /**
@@ -676,4 +679,3 @@ typedef struct
 } BTGattClientInterface_t;
 
 #endif /* #ifndef _BT_HAL_GATT_CLIENT_H_ */
-

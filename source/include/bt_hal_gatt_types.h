@@ -2,6 +2,8 @@
  * FreeRTOS BLE HAL V5.1.0
  * Copyright (C) 2020 Amazon.com, Inc. or its affiliates.  All Rights Reserved.
  *
+ * SPDX-License-Identifier: MIT
+ *
  * Permission is hereby granted, free of charge, to any person obtaining a copy of
  * this software and associated documentation files (the "Software"), to deal in
  * the Software without restriction, including without limitation the rights to
@@ -99,7 +101,7 @@ enum
     eBTPropSignedWrite = 0x0040,
     eBTPropExtendedProps = 0x0080,
 };
-typedef uint16_t BTCharProperties_t;    /**< GATT Characteristic Property. */
+typedef uint16_t BTCharProperties_t; /**< GATT Characteristic Property. */
 
 /**
  * @ingroup bt_hal_enum_types
@@ -282,24 +284,24 @@ struct BTService
  */
 typedef struct
 {
-    uint16_t usId;                  /**< Service ID. */
-    BTUuid_t xUuid;                 /**< UUID. */
-    BTDbAttributeType_t xType;      /**< Attribute Type. */
-    uint16_t usAttributeHandle;     /**< Attribute Handle. */
+    uint16_t usId;              /**< Service ID. */
+    BTUuid_t xUuid;             /**< UUID. */
+    BTDbAttributeType_t xType;  /**< Attribute Type. */
+    uint16_t usAttributeHandle; /**< Attribute Handle. */
 
     /*
      * If |type| is |btDB_PRIMARY_SERVICE|, or
      * |btDB_SECONDARY_SERVICE|, this contains the start and end attribute
      * handles.
      */
-    uint16_t usStartHandle;         /**< Start Attribute Handle. */
-    uint16_t usEndHandle;           /**< End Attribute Handle. */
+    uint16_t usStartHandle; /**< Start Attribute Handle. */
+    uint16_t usEndHandle;   /**< End Attribute Handle. */
 
     /*
      * If |type| is |btDB_CHARACTERISTIC|, this contains the properties of
      * the characteristic.
      */
-    uint8_t ucProperties;           /**< Properties of the Characteristic. */
+    uint8_t ucProperties; /**< Properties of the Characteristic. */
 } BTGattDbElement_t;
 
 /** GATT open callback invoked in response to open */
