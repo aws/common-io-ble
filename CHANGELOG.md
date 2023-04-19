@@ -1,6 +1,6 @@
 # Changelog for Common IO - BLE Library
 
-## v1.0.0 (April 2023)
+## v5.1.0 (April 2023)
 
 This is the first release of the Common IO - BLE Library in this repository.
 
