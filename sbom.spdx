@@ -1,0 +1,22 @@
+SPDXVersion: SPDX-2.2
+DataLicense: CC0-1.0
+SPDXID: SPDXRef-DOCUMENT
+DocumentName: common-io-ble
+DocumentNamespace: https://github.com/FreeRTOS/common-io-ble/blob/v1.0.0/sbom.spdx
+Creator: Amazon Web Services
+Created: 2023-04-25T22:13:38Z
+CreatorComment: NOASSERTION
+DocumentComment: NOASSERTION
+
+PackageName: common-io-ble
+SPDXID: SPDXRef-Package-common-io-ble
+PackageVersion: v1.0.0
+PackageDownloadLocation: https://github.com/aws/common-io-ble/tree/v1.0.0
+PackageLicenseConcluded: MIT
+FilesAnalyzed: True
+PackageVerificationCode: 3d4bd5722d8efd7ec5a6481d65f9599c6a7f264c
+PackageCopyrightText: NOASSERTION
+PackageSummary: NOASSERTION
+PackageDescription: "Hardware abstraction layer for Bluetooth.\n"
+
+
