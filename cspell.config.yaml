@@ -1,0 +1,18 @@
+---
+$schema: https://raw.githubusercontent.com/streetsidesoftware/cspell/main/cspell.schema.json
+version: '0.2'
+allowCompoundWords: true
+useGitignore: true
+languageSettings:
+  - caseSensitive: false
+    enabled: true
+    languageId: c
+    locale: "*"
+dictionaryDefinitions:
+  - name: freertos-words
+    path: '.github/.cSpellWords.txt'
+    addWords: true
+dictionaries:
+  - freertos-words
+ignorePaths:
+  - 'docs'
