@@ -47,6 +47,10 @@ jobs:
     needs: clean-existing-tag-and-release
     name: Tag commit
     runs-on: ubuntu-latest
+    env:
+      VERSION_NUM: ${{ github.event.inputs.version_number }}
+      COMMIT_ID: ${{ github.event.inputs.commit_id }}
+      GH_ACTOR: ${{ github.actor }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
@@ -54,10 +58,10 @@ jobs:
           ref: ${{ github.event.inputs.commit_id }}
       - name: Configure git identity
         run: |
-          git config --global user.name ${{ github.actor }}
-          git config --global user.email ${{ github.actor }}@users.noreply.github.com
+          git config --global user.name "$GH_ACTOR"
+          git config --global user.email "${GH_ACTOR}@users.noreply.github.com"
       - name: create a new branch that references commit id
-        run: git checkout -b ${{ github.event.inputs.version_number }} ${{ github.event.inputs.commit_id }}
+        run: git checkout -b "$VERSION_NUM" "$COMMIT_ID"
       - name: Generate SBOM
         uses: FreeRTOS/CI-CD-Github-Actions/sbom-generator@main
         with:
@@ -67,22 +71,24 @@ jobs:
         run: |
           git add .
           git commit -m 'Update SBOM'
-          git push -u origin ${{ github.event.inputs.version_number }}
+          git push -u origin "$VERSION_NUM"
       - name: Tag Commit and Push to remote
         run: |
-          git tag ${{ github.event.inputs.version_number }} -a -m "Common IO - BLE ${{ github.event.inputs.version_number }}"
+          git tag "$VERSION_NUM" -a -m "Common IO - BLE $VERSION_NUM"
           git push origin --tags
       - name: Verify tag on remote
         run: |
-          git tag -d ${{ github.event.inputs.version_number }}
+          git tag -d "$VERSION_NUM"
           git remote update
-          git checkout tags/${{ github.event.inputs.version_number }}
-          git diff ${{ github.event.inputs.commit_id }} tags/${{ github.event.inputs.version_number }}
+          git checkout "tags/$VERSION_NUM"
+          git diff "$COMMIT_ID" "tags/$VERSION_NUM"
   create-zip:
     if: ${{ ( github.event.inputs.delete_existing_tag_release == 'true' && success() )  || ( github.event.inputs.delete_existing_tag_release == 'false' && always() ) }}
     needs: add-sbom-and-tag-commit
     name: Create ZIP and verify package for release asset.
     runs-on: ubuntu-latest
+    env:
+      VERSION_NUM: ${{ github.event.inputs.version_number }}
     steps:
       - name: Install ZIP tools
         run: sudo apt-get install zip unzip
@@ -98,16 +104,16 @@ jobs:
           git submodule update --init --checkout --recursive
       - name: Create ZIP
         run: |
-          zip -r common-io-ble-${{ github.event.inputs.version_number }}.zip common-io-ble -x "*.git*"
+          zip -r "common-io-ble-${VERSION_NUM}.zip" common-io-ble -x "*.git*"
           ls ./
       - name: Validate created ZIP
         run: |
           mkdir zip-check
-          mv common-io-ble-${{ github.event.inputs.version_number }}.zip zip-check
+          mv "common-io-ble-${VERSION_NUM}.zip" zip-check
           cd zip-check
-          unzip common-io-ble-${{ github.event.inputs.version_number }}.zip -d common-io-ble-${{ github.event.inputs.version_number }}
-          ls common-io-ble-${{ github.event.inputs.version_number }}
-          diff -r -x "*.git*" common-io-ble-${{ github.event.inputs.version_number }}/common-io-ble/ ../common-io-ble/
+          unzip "common-io-ble-${VERSION_NUM}.zip" -d "common-io-ble-${VERSION_NUM}"
+          ls "common-io-ble-${VERSION_NUM}"
+          diff -r -x "*.git*" "common-io-ble-${VERSION_NUM}/common-io-ble/" ../common-io-ble/
           cd ../
       - name: Create artifact of ZIP
         uses: actions/upload-artifact@v2
